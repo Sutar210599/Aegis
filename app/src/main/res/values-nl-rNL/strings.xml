@@ -12,7 +12,6 @@
     <string name="issuer">Uitgever</string>
     <string name="settings">Voorkeuren</string>
     <string name="pref_appearance_group_title">Uiterlijk</string>
-    <string name="pref_general_group_title">Algemeen</string>
     <string name="pref_security_group_title">Beveiliging</string>
     <string name="pref_tools_group_title">Hulpmiddelen</string>
     <string name="pref_backups_group_title">Back-ups</string>
@@ -64,6 +63,12 @@
     <string name="pref_biometrics_summary">Sta biometrische authenticatie toe om de kluis te ontgrendelen</string>
     <string name="pref_set_password_title">Wachtwoord wijzigen</string>
     <string name="pref_set_password_summary">Stel een nieuw wachtwoord in waarmee je de kluis kunt ontgrendelen</string>
+    <string name="export_encrypted">Versleutel de kluis</string>
+    <string name="export_help">Deze actie zal de kluis exporteren uit de interne opslag van Aegis. Selecteer het formaat waarin je de export wilt:</string>
+    <string name="export_warning_unencrypted">U staat op het punt een niet-geëncrypte kopie van uw Aegis-kluis te exporteren. <b>Dit is niet aanbevolen</b>.</string>
+    <string name="export_warning_accept">Ik begrijp het risico</string>
+    <string name="export_format_aegis">Aegis (.JSON)</string>
+    <string name="export_format_google_auth_uri">Tekstbestand (.TXT)</string>
     <string name="choose_authentication_method">Beveiliging</string>
     <string name="authentication_method_explanation">Aegis is een op veiligheid gerichte 2FA-applicatie. Tokens worden opgeslagen in een kluis, die optioneel kan worden versleuteld met een wachtwoord van uw keuze. Als een aanvaller je versleutelde kluisbestand verkrijgt, zullen ze geen toegang hebben tot de inhoud zonder het wachtwoord te kennen.\n\nWij hebben de optie gekozen die volgens ons het beste past op jouw apparaat.</string>
     <string name="authentication_method_none">Geen</string>
@@ -87,6 +92,7 @@
     <string name="invalidated_biometrics">Er is een verandering in de beveiligingsinstellingen van je toestel gedetecteerd. Ga naar \"Aegis -&gt; Instellingen -&gt; Vingerafdruk\" om opnieuw biometrische verificatie in te schakelen.</string>
     <string name="password_reminder">Voer je wachtwoord in. We vragen je af en toe om dit te doen, zodat je het niet vergeet.</string>
     <string name="enter_password_authy_message">Het lijkt erop dat je Authy tokens zijn versleuteld. Sluit Aegis, open Authy en ontgrendel de tokens met je wachtwoord. In plaats daarvan kan Aegis ook proberen om je Authy tokens te decoderen als je hieronder je wachtwoord invult.</string>
+    <string name="share">Delen</string>
     <string name="yes">Ja</string>
     <string name="no">Nee</string>
     <string name="unlock">Ontgrendel</string>
@@ -117,6 +123,7 @@
     <string name="password_equality_error">Wachtwoorden moeten overeen komen en mogen niet leeg zijn</string>
     <string name="snackbar_authentication_method">Kies een inlogmethode</string>
     <string name="encrypting_vault">De kluis wordt geëncrypt</string>
+    <string name="exporting_vault">De kluis wordt geëxporteerd</string>
     <string name="delete_entry">Item verwijderen</string>
     <string name="delete_entry_description">Weet je zeker dat je dit item wilt verwijderen?</string>
     <string name="delete_entries">Items verwijderen</string>
@@ -149,6 +156,7 @@
     <string name="disable_encryption_description">Weet je zeker dat je encryptie wilt uitschakelen? Dit zorgt ervoor dat de kluis in leesbare tekst wordt opgeslagen.</string>
     <string name="enable_encryption_error">Er is een fout opgetreden tijdens het inschakelen van de encryptie</string>
     <string name="disable_encryption_error">Er is een fout opgetreden tijden het uitschakelen van de encryptie</string>
+    <string name="backup_successful">De back-up is succesvol gepland</string>
     <string name="backup_error">Er is een fout opgetreden bij maken van een back-up</string>
     <string name="permission_denied">Toestemming geweigerd</string>
     <string name="andotp_new_format">Nieuw formaat (v0.6.3 of nieuwer) </string>
@@ -202,8 +210,6 @@
     <string name="group_name_hint">Groepsnaam</string>
     <string name="preference_manage_groups">Groepen bewerken</string>
     <string name="preference_manage_groups_summary">Beheer en verwijder hier je groepen</string>
-    <string name="pref_search_name_title">Zoek in accountnamen</string>
-    <string name="pref_search_name_summary">Neem accountnaamovereenkomsten op in de zoekresultaten</string>
     <string name="pref_highlight_entry_title">Tokens markeren na aantikken</string>
     <string name="pref_highlight_entry_summary">Maak tokens makkelijker te onderscheiden van elkaar door ze tijdelijk te markeren wanneer ze worden aangeklikt</string>
     <string name="pref_copy_on_tap_title">Tokens kopiëren wanneer aangeklikt</string>

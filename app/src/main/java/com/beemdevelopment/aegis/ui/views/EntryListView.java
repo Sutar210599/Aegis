@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.beemdevelopment.aegis.R;
 import com.beemdevelopment.aegis.SortCategory;
 import com.beemdevelopment.aegis.ViewMode;
+import com.beemdevelopment.aegis.helpers.MetricsHelper;
 import com.beemdevelopment.aegis.helpers.SimpleItemTouchHelperCallback;
 import com.beemdevelopment.aegis.helpers.UiRefresher;
 import com.beemdevelopment.aegis.otp.TotpInfo;
@@ -258,10 +259,6 @@ public class EntryListView extends Fragment implements EntryAdapter.Listener {
         _adapter.setShowAccountName(showAccountName);
     }
 
-    public void setSearchAccountName(boolean searchAccountName) {
-        _adapter.setSearchAccountName(searchAccountName);
-    }
-
     public void setHighlightEntry(boolean highlightEntry) {
         _adapter.setHighlightEntry(highlightEntry);
     }
@@ -392,7 +389,7 @@ public class EntryListView extends Fragment implements EntryAdapter.Listener {
 
         private VerticalSpaceItemDecoration(float dp) {
             // convert dp to pixels
-            _height = (int) (dp * (getContext().getResources().getDisplayMetrics().densityDpi / 160f));
+            _height = MetricsHelper.convertDpToPixels(getContext(), dp);
         }
 
         @Override

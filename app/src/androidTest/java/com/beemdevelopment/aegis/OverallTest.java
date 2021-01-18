@@ -127,6 +127,7 @@ public class OverallTest extends AegisTest {
 
         openContextualActionModeOverflowMenu();
         onView(withText(R.string.action_settings)).perform(click());
+        onView(withId(androidx.preference.R.id.recycler_view)).perform(RecyclerViewActions.actionOnItem(hasDescendant(withText(R.string.pref_security_group_title)), click()));
         onView(withId(androidx.preference.R.id.recycler_view)).perform(RecyclerViewActions.actionOnItem(hasDescendant(withText(R.string.pref_encryption_title)), click()));
         onView(withId(android.R.id.button1)).perform(click());
 
@@ -158,7 +159,7 @@ public class OverallTest extends AegisTest {
     }
 
     private void addEntry(VaultEntry entry) {
-        onView(withId(R.id.fab_expand_menu_button)).perform(click());
+        onView(withId(R.id.fab)).perform(click());
         onView(withId(R.id.fab_enter)).perform(click());
 
         onView(withId(R.id.text_name)).perform(typeText(entry.getName()), closeSoftKeyboard());

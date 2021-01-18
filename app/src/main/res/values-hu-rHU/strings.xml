@@ -10,7 +10,6 @@
     <string name="issuer">Kibocsátó</string>
     <string name="settings">Beállítások</string>
     <string name="pref_appearance_group_title">Megjelenés</string>
-    <string name="pref_general_group_title">Általános</string>
     <string name="pref_security_group_title">Biztonság</string>
     <string name="pref_tools_group_title">Eszközök</string>
     <string name="pref_backups_group_title">Biztonsági mentések</string>
@@ -171,8 +170,6 @@
     <string name="group_name_hint">Csoportnév</string>
     <string name="preference_manage_groups">Csoportok szerkesztése</string>
     <string name="preference_manage_groups_summary">Itt kezelheti és törölheti a csoportokat</string>
-    <string name="pref_search_name_title">Keresés a fióknevekben</string>
-    <string name="pref_search_name_summary">A fióknévben egyezéseinek belevétele a találatokba</string>
     <string name="pref_highlight_entry_title">Tokenek kiemelése koppintáskor</string>
     <string name="pref_highlight_entry_summary">A tokenek könnyebb megkülönböztethetősége érdekében ideiglenesen ki lesznek emeve koppintáskor</string>
     <string name="selected">Kiválasztott</string>

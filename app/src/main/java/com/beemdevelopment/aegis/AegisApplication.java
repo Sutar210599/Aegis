@@ -29,6 +29,7 @@ import com.beemdevelopment.aegis.vault.VaultManager;
 import com.beemdevelopment.aegis.vault.VaultManagerException;
 import com.mikepenz.iconics.Iconics;
 import com.mikepenz.material_design_iconic_typeface_library.MaterialDesignIconic;
+import com.topjohnwu.superuser.Shell;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -39,9 +40,15 @@ public class AegisApplication extends Application {
     private VaultManager _manager;
     private Preferences _prefs;
     private List<LockListener> _lockListeners;
+    private boolean _blockAutoLock;
 
     private static final String CODE_LOCK_STATUS_ID = "lock_status_channel";
     private static final String CODE_LOCK_VAULT_ACTION = "lock_vault";
+
+    static {
+        // to access other app's internal storage directory, run libsu commands inside the global mount namespace
+        Shell.Config.setFlags(Shell.FLAG_MOUNT_MASTER);
+    }
 
     @Override
     public void onCreate() {
@@ -89,7 +96,7 @@ public class AegisApplication extends Application {
         }
 
         if (_vaultFile == null) {
-            _vaultFile = VaultManager.readFile(this);
+            _vaultFile = VaultManager.readVaultFile(this);
         }
 
         return _vaultFile;
@@ -133,6 +140,15 @@ public class AegisApplication extends Application {
 
     public void unregisterLockListener(LockListener listener) {
         _lockListeners.remove(listener);
+    }
+
+    /**
+     * Sets whether to block automatic lock on minimization. This should only be called
+     * by activities before invoking an intent that shows a DocumentsUI, because that
+     * action leads AppLifecycleObserver to believe that the app has been minimized.
+     */
+    public void setBlockAutoLock(boolean block) {
+        _blockAutoLock = block;
     }
 
     /**
@@ -189,7 +205,9 @@ public class AegisApplication extends Application {
     private class AppLifecycleObserver implements LifecycleEventObserver {
         @Override
         public void onStateChanged(@NonNull LifecycleOwner source, @NonNull Lifecycle.Event event) {
-            if (event == Lifecycle.Event.ON_STOP && isAutoLockEnabled(Preferences.AUTO_LOCK_ON_MINIMIZE)) {
+            if (event == Lifecycle.Event.ON_STOP
+                    && isAutoLockEnabled(Preferences.AUTO_LOCK_ON_MINIMIZE)
+                    && !_blockAutoLock) {
                 lock(false);
             }
         }

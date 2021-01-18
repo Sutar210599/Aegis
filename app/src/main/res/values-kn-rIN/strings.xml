@@ -10,7 +10,6 @@
     <string name="issuer">ನೀಡುವವರು</string>
     <string name="settings">ಸಿದ್ಢತೆಗಳು</string>
     <string name="pref_appearance_group_title">ನೋಟ</string>
-    <string name="pref_general_group_title">ಸಾಮಾನ್ಯ</string>
     <string name="pref_security_group_title">ಭದ್ರತೆ</string>
     <string name="pref_tools_group_title">ಉಪಕರಣಗಳು</string>
     <string name="pref_select_theme_title">ಥೀಮ್</string>
@@ -118,8 +117,6 @@
     <string name="group_name_hint">ಗುಂಪಿನ ಹೆಸರು</string>
     <string name="preference_manage_groups">ಗುಂಪುಗಳನ್ನು ಸಂಪಾದಿಸು</string>
     <string name="preference_manage_groups_summary">ಇಲ್ಲಿ ನಿಮ್ಮ ಗುಂಪುಗಳನ್ನು ನಿರ್ವಹಿಸು ಮತ್ತು ಅಳಿಸು</string>
-    <string name="pref_search_name_title">ಖಾತೆಯ ಹೆಸರುಗಳಲ್ಲಿ ಹುಡುಕು</string>
-    <string name="pref_search_name_summary">ಹುಡುಕಾಟ ಫಲಿತಂಶದಲ್ಲಿ ಖಾತೆಯ ಹೆಸರನ್ನು ಒಳಗೊಂಡಿಸು</string>
     <string name="selected">ಆಯ್ಕೆ ಮಾಡಿರುವುದು</string>
     <string name="dark_theme_title">ಗಾಢ ಥೀಮ್</string>
     <string name="light_theme_title">ತಿಳಿ ಥೀಮ್</string>

@@ -17,6 +17,7 @@ import androidx.camera.view.PreviewView;
 import androidx.core.content.ContextCompat;
 
 import com.beemdevelopment.aegis.R;
+import com.beemdevelopment.aegis.ThemeMap;
 import com.beemdevelopment.aegis.helpers.QrCodeAnalyzer;
 import com.beemdevelopment.aegis.otp.GoogleAuthInfo;
 import com.beemdevelopment.aegis.otp.GoogleAuthInfoException;
@@ -77,7 +78,7 @@ public class ScannerActivity extends AegisActivity implements QrCodeAnalyzer.Lis
 
     @Override
     protected void onSetTheme() {
-        setTheme(R.style.AppTheme_Fullscreen);
+        setTheme(ThemeMap.FULLSCREEN);
     }
 
     @Override
@@ -156,7 +157,9 @@ public class ScannerActivity extends AegisActivity implements QrCodeAnalyzer.Lis
             }
         } catch (GoogleAuthInfoException e) {
             e.printStackTrace();
-            Dialogs.showErrorDialog(this, R.string.read_qr_error, e, ((dialog, which) -> bindPreview(_cameraProvider)));
+            Dialogs.showErrorDialog(this,
+                    e.isPhoneFactor() ? R.string.read_qr_error_phonefactor : R.string.read_qr_error,
+                    e, ((dialog, which) -> bindPreview(_cameraProvider)));
             _cameraProvider.unbindAll();
         }
     }

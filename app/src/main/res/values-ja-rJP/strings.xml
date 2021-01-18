@@ -12,7 +12,6 @@
     <string name="issuer">発行者</string>
     <string name="settings">設定</string>
     <string name="pref_appearance_group_title">外観</string>
-    <string name="pref_general_group_title">全般</string>
     <string name="pref_security_group_title">セキュリティ</string>
     <string name="pref_tools_group_title">ツール</string>
     <string name="pref_backups_group_title">バックアップ</string>
@@ -122,6 +121,7 @@
     <string name="password_equality_error">パスワードが一致しません</string>
     <string name="snackbar_authentication_method">認証方法を選択してください</string>
     <string name="encrypting_vault">保管庫の暗号化</string>
+    <string name="exporting_vault">保管庫のエクスポート</string>
     <string name="delete_entry">エントリーを削除</string>
     <string name="delete_entry_description">このエントリーを削除してもよろしいですか？</string>
     <string name="delete_entries">エントリーを削除</string>
@@ -153,6 +153,7 @@
     <string name="disable_encryption_description">暗号化を無効にしてもよろしいですか？これにより、保管庫は平文で保存されます。</string>
     <string name="enable_encryption_error">暗号化の有効化中にエラーが発生しました</string>
     <string name="disable_encryption_error">暗号化の無効化中にエラーが発生しました</string>
+    <string name="backup_successful">バックアップが正常に作成されました</string>
     <string name="backup_error">バックアップの作成中にエラーが発生しました</string>
     <string name="permission_denied">権限がありません</string>
     <string name="andotp_new_format">新しい形式 (v0.6.3 以降) </string>
@@ -205,8 +206,6 @@
     <string name="group_name_hint">グループ名</string>
     <string name="preference_manage_groups">グループを編集</string>
     <string name="preference_manage_groups_summary">ここでグループの管理や削除ができます</string>
-    <string name="pref_search_name_title">アカウント名で検索</string>
-    <string name="pref_search_name_summary">検索結果にアカウント名が一致するものを含める</string>
     <string name="pref_highlight_entry_title">タップ時にトークンを強調表示する</string>
     <string name="pref_highlight_entry_summary">タップ時に一時的に強調表示することで、トークンが互いに区別しやすくなります。</string>
     <string name="pref_copy_on_tap_title">タップ時にトークンをコピー</string>
