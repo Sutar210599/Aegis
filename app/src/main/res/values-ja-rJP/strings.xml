@@ -11,10 +11,9 @@
     <string name="save">保存</string>
     <string name="issuer">発行者</string>
     <string name="settings">設定</string>
-    <string name="pref_appearance_group_title">外観</string>
-    <string name="pref_security_group_title">セキュリティ</string>
-    <string name="pref_tools_group_title">ツール</string>
-    <string name="pref_backups_group_title">バックアップ</string>
+    <string name="pref_section_appearance_title">外観</string>
+    <string name="pref_section_security_title">セキュリティ</string>
+    <string name="pref_section_backups_title">バックアップ</string>
     <string name="pref_select_theme_title">テーマ</string>
     <string name="pref_view_mode_title">表示モード</string>
     <string name="pref_lang_title">言語</string>
@@ -96,7 +95,6 @@
     <string name="unlock">ロック解除</string>
     <string name="biometrics">生体認証</string>
     <string name="advanced">高度な設定</string>
-    <string name="seconds">秒</string>
     <string name="counter">カウンター</string>
     <string name="digits">桁数</string>
     <string name="secret">秘密鍵</string>
@@ -190,10 +188,7 @@
     <string name="adding_new_slot_error">新しいスロットの追加中にエラーが発生しました:</string>
     <string name="progressbar_error">アニメーションの継続時間をリセットすることはできません。プログレスバーは表示されません。</string>
     <string name="details">詳細</string>
-    <string name="filter">フィルター</string>
-    <string name="filter_ungrouped">グループ解除</string>
     <string name="lock">ロックする</string>
-    <string name="all">すべて</string>
     <string name="name">名前</string>
     <string name="no_group">グループなし</string>
     <string name="sort_alphabetically">発行者 (A to Z)</string>
@@ -241,8 +236,8 @@
     <string name="changelog">更新履歴</string>
     <string name="whats_new">新着情報</string>
     <string name="github_description">ソースコード、問題および情報</string>
-    <string name="licenses">ライセンス</string>
-    <string name="licenses_description">Aegisが使用するライブラリーのライセンス</string>
+    <string name="third_party_licenses">ライセンス</string>
+    <string name="third_party_licenses_description">Aegisが使用するライブラリーのライセンス</string>
     <string name="country_netherlands">オランダ</string>
     <string name="email_us">メールを書く</string>
     <string name="visit_website">ウェブサイトを表示</string>
@@ -286,7 +281,7 @@
     <string name="title_activity_edit_entry">エントリーを編集</string>
     <string name="title_activity_scan_qr">QRコードをスキャン</string>
     <string name="title_activity_manage_slots">キースロットの管理</string>
-    <string name="title_activity_select_entries">項目を選択</string>
+    <string name="title_activity_import_entries">項目を選択</string>
     <string name="dialog_wipe_entries_title">項目を消去</string>
     <string name="dialog_wipe_entries_checkbox">保管庫の内容を消去</string>
     <string name="panic_trigger_ignore_toast">イージスはパニックトリガーを受信しましたが、設定は無効になっています。</string>

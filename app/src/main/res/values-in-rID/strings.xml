@@ -11,10 +11,9 @@
     <string name="save">Simpan</string>
     <string name="issuer">Penerbit</string>
     <string name="settings">Pilihan</string>
-    <string name="pref_appearance_group_title">Tampilan</string>
-    <string name="pref_security_group_title">Keamanan</string>
-    <string name="pref_tools_group_title">Alat</string>
-    <string name="pref_backups_group_title">Cadangan</string>
+    <string name="pref_section_appearance_title">Tampilan</string>
+    <string name="pref_section_security_title">Keamanan</string>
+    <string name="pref_section_backups_title">Cadangan</string>
     <string name="pref_select_theme_title">Tema</string>
     <string name="pref_view_mode_title">Mode tampilan</string>
     <string name="pref_lang_title">Bahasa</string>
@@ -97,7 +96,6 @@
     <string name="unlock">Buka</string>
     <string name="biometrics">Biometrik</string>
     <string name="advanced">Lanjutan</string>
-    <string name="seconds">detik</string>
     <string name="counter">Penghitung</string>
     <string name="digits">Digit</string>
     <string name="secret">Rahasia</string>
@@ -189,10 +187,7 @@
     <string name="adding_new_slot_error">Terjadi kesalahan saat menambahkan slot baru:</string>
     <string name="progressbar_error">Tidak dapat mengatur ulang skala durasi animasi. Progress bar tidak akan terlihat.</string>
     <string name="details">Rincian</string>
-    <string name="filter">Saring</string>
-    <string name="filter_ungrouped">Tidak dikelompokkan</string>
     <string name="lock">Kunci</string>
-    <string name="all">Semua</string>
     <string name="name">Nama</string>
     <string name="no_group">Tidak ada kelompok</string>
     <string name="sort_alphabetically">Penerbit (A ke Z)</string>
@@ -240,8 +235,8 @@
     <string name="changelog">Catatan perubahan</string>
     <string name="whats_new">Apa yang baru</string>
     <string name="github_description">Kode sumber, masalah dan informasi</string>
-    <string name="licenses">Lisensi</string>
-    <string name="licenses_description">Lisensi pustaka yang digunakan Aegis</string>
+    <string name="third_party_licenses">Lisensi</string>
+    <string name="third_party_licenses_description">Lisensi pustaka yang digunakan Aegis</string>
     <string name="country_netherlands">Belanda</string>
     <string name="email_us">Tuliskan email</string>
     <string name="visit_website">Kunjungi situs web kami</string>
@@ -286,7 +281,7 @@
     <string name="title_activity_edit_entry">Sunting catatan</string>
     <string name="title_activity_scan_qr">Pindai kode QR</string>
     <string name="title_activity_manage_slots">Atur slot kunci</string>
-    <string name="title_activity_select_entries">Pilih catatan</string>
+    <string name="title_activity_import_entries">Pilih catatan</string>
     <string name="dialog_wipe_entries_title">Hapus catatan</string>
     <string name="dialog_wipe_entries_message">Brankas Anda sudah memiliki catatan. Apakah Anda ingin menghapus catatan ini tanpa mengimpor berkas ini?\n\n<b>Jika ini dilakukan, Anda akan kehilangan akses secara permanen ke catatan yang ada di brankas.</b></string>
     <string name="dialog_wipe_entries_checkbox">Hapus konten brankas</string>

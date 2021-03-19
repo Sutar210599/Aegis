@@ -11,10 +11,9 @@
     <string name="save">Αποθήκευση</string>
     <string name="issuer">Εκδότης</string>
     <string name="settings">Προτιμήσεις</string>
-    <string name="pref_appearance_group_title">Εμφάνιση</string>
-    <string name="pref_security_group_title">Ασφάλεια</string>
-    <string name="pref_tools_group_title">Εργαλεία</string>
-    <string name="pref_backups_group_title">Αντίγραφα Ασφαλείας</string>
+    <string name="pref_section_appearance_title">Εμφάνιση</string>
+    <string name="pref_section_security_title">Ασφάλεια</string>
+    <string name="pref_section_backups_title">Αντίγραφα Ασφαλείας</string>
     <string name="pref_select_theme_title">Θέμα</string>
     <string name="pref_view_mode_title">Τρόπος προβολής</string>
     <string name="pref_lang_title">Γλώσσα</string>
@@ -98,7 +97,6 @@
     <string name="unlock">Ξεκλείδωμα</string>
     <string name="biometrics">Βιομετρική</string>
     <string name="advanced">Σύνθετες</string>
-    <string name="seconds">δευτερόλεπτα</string>
     <string name="counter">Μετρητής</string>
     <string name="digits">Ψηφία</string>
     <string name="secret">Μυστικός κωδικός</string>
@@ -194,10 +192,7 @@
     <string name="adding_new_slot_error">Παρουσιάστηκε σφάλμα κατά την προσπάθεια προσθήκης νέας υποδοχής:</string>
     <string name="progressbar_error">Δεν είναι δυνατή η επαναφορά της κλίμακας. Οι γραμμές προόδου θα είναι αόρατες.</string>
     <string name="details">Λεπτομέρειες</string>
-    <string name="filter">Φίλτρο</string>
-    <string name="filter_ungrouped">Χωρίς ομάδα</string>
     <string name="lock">Κλείδωμα</string>
-    <string name="all">Όλα</string>
     <string name="name">Όνομα</string>
     <string name="no_group">Χωρίς ομάδα</string>
     <string name="sort_alphabetically">Εκδότης (Α προς Ζ)</string>
@@ -246,8 +241,8 @@
     <string name="changelog">Αρχείο καταγραφής αλλαγών</string>
     <string name="whats_new">Τι νέο υπάρχει</string>
     <string name="github_description">Πηγαίος κώδικας, προβλήματα και πληροφορίες</string>
-    <string name="licenses">Άδειες</string>
-    <string name="licenses_description">Άδειες βιβλιοθηκών που χρησιμοποιεί το Aegis</string>
+    <string name="third_party_licenses">Άδειες</string>
+    <string name="third_party_licenses_description">Άδειες βιβλιοθηκών που χρησιμοποιεί το Aegis</string>
     <string name="country_netherlands">Ολλανδία</string>
     <string name="email_us">Γράψτε ένα email</string>
     <string name="visit_website">Επισκεφτείτε την ιστοσελίδα μας</string>
@@ -294,7 +289,7 @@
     <string name="title_activity_edit_entry">Επεξεργασία καταχώρησης</string>
     <string name="title_activity_scan_qr">Σάρωση κωδικού QR</string>
     <string name="title_activity_manage_slots">Διαχείριση κλειδιών υποδοχής</string>
-    <string name="title_activity_select_entries">Επιλέξτε καταχωρήσεις</string>
+    <string name="title_activity_import_entries">Επιλέξτε καταχωρήσεις</string>
     <string name="dialog_wipe_entries_title">Διαγραφή καταχωρήσεων</string>
     <string name="dialog_wipe_entries_message">Η κρύπτη σας περιέχει ήδη καταχωρήσεις. Θέλετε να καταργήσετε αυτές τις καταχωρήσεις πριν από την εισαγωγή αυτού του αρχείου;\n\n <b> Με αυτόν τον τρόπο, θα χάσετε μόνιμα την πρόσβαση στις υπάρχουσες καταχωρήσεις στην κρύπτη. </b></string>
     <string name="dialog_wipe_entries_checkbox">Διαγραφή περιεχομένων κρύπτης</string>

@@ -12,7 +12,7 @@ import com.beemdevelopment.aegis.encoding.Hex;
 import com.beemdevelopment.aegis.otp.OtpInfo;
 import com.beemdevelopment.aegis.otp.OtpInfoException;
 import com.beemdevelopment.aegis.otp.TotpInfo;
-import com.beemdevelopment.aegis.ui.Dialogs;
+import com.beemdevelopment.aegis.ui.dialogs.Dialogs;
 import com.beemdevelopment.aegis.util.JsonUtils;
 import com.beemdevelopment.aegis.util.PreferenceParser;
 import com.beemdevelopment.aegis.vault.VaultEntry;
@@ -204,7 +204,7 @@ public class AuthyImporter extends DatabaseImporter {
                 } catch (DatabaseImporterException e) {
                     listener.onError(e);
                 }
-            });
+            }, dialog1 -> listener.onCanceled());
         }
     }
 
@@ -256,7 +256,7 @@ public class AuthyImporter extends DatabaseImporter {
                 }
 
                 int digits = entry.getInt("digits");
-                OtpInfo info = new TotpInfo(secret, "SHA1", digits, isAuthy ? 10 : 30);
+                OtpInfo info = new TotpInfo(secret, OtpInfo.DEFAULT_ALGORITHM, digits, isAuthy ? 10 : TotpInfo.DEFAULT_PERIOD);
                 return new VaultEntry(info, authyEntryInfo.Name, authyEntryInfo.Issuer);
             } catch (OtpInfoException | JSONException | EncodingException e) {
                 throw new DatabaseImporterEntryException(e, entry.toString());

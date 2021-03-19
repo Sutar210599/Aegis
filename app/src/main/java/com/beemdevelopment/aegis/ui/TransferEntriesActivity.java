@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.beemdevelopment.aegis.R;
 import com.beemdevelopment.aegis.otp.GoogleAuthInfo;
+import com.beemdevelopment.aegis.ui.dialogs.Dialogs;
 import com.beemdevelopment.aegis.vault.VaultManager;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
@@ -37,6 +38,7 @@ public class TransferEntriesActivity extends AegisActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_share_entry);
+        setSupportActionBar(findViewById(R.id.toolbar));
         _vault = getApp().getVaultManager();
 
         _qrImage = findViewById(R.id.ivQrCode);

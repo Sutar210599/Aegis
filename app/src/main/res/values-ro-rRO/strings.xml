@@ -11,10 +11,9 @@
     <string name="save">Salvează</string>
     <string name="issuer">Emitent</string>
     <string name="settings">Preferințe</string>
-    <string name="pref_appearance_group_title">Aspect</string>
-    <string name="pref_security_group_title">Securitate</string>
-    <string name="pref_tools_group_title">Unelte</string>
-    <string name="pref_backups_group_title">Copii de rezervă</string>
+    <string name="pref_section_appearance_title">Aspect</string>
+    <string name="pref_section_security_title">Securitate</string>
+    <string name="pref_section_backups_title">Copii de rezervă</string>
     <string name="pref_select_theme_title">Temă</string>
     <string name="pref_view_mode_title">Mod de vizualizare</string>
     <string name="pref_lang_title">Limbă</string>
@@ -99,7 +98,6 @@
     <string name="unlock">Deblocare</string>
     <string name="biometrics">Biometrice</string>
     <string name="advanced">Avansat</string>
-    <string name="seconds">secunde</string>
     <string name="counter">Contor</string>
     <string name="digits">Cifre</string>
     <string name="secret">Secret</string>
@@ -195,10 +193,7 @@
     <string name="adding_new_slot_error">A aparut o eroare în timp ce se încerca adăugarea unui nou slot:</string>
     <string name="progressbar_error">Imposibil de a reseta scala duratei animatorului. Barele de progres vor fi invizibile.</string>
     <string name="details">Detalii</string>
-    <string name="filter">Filtru</string>
-    <string name="filter_ungrouped">Negrupat</string>
     <string name="lock">Blocare</string>
-    <string name="all">Toate</string>
     <string name="name">Nume</string>
     <string name="no_group">Niciun grup</string>
     <string name="sort_alphabetically">Emitent (A - Z)</string>
@@ -248,8 +243,8 @@
     <string name="changelog">Istoric modificări</string>
     <string name="whats_new">Ce este nou</string>
     <string name="github_description">Cod sursă, probleme și informații</string>
-    <string name="licenses">Licențe</string>
-    <string name="licenses_description">Licenţele bibliotecilor Aegis utilizeaza</string>
+    <string name="third_party_licenses">Licențe</string>
+    <string name="third_party_licenses_description">Licenţele bibliotecilor Aegis utilizeaza</string>
     <string name="country_netherlands">Olanda</string>
     <string name="email_us">Scrieţi un e-mail</string>
     <string name="visit_website">Vizitați site-ul nostru web</string>
@@ -298,7 +293,7 @@
     <string name="title_activity_edit_entry">Editați intrarea</string>
     <string name="title_activity_scan_qr">Scanează cod QR</string>
     <string name="title_activity_manage_slots">Gestionare sloturi cheie</string>
-    <string name="title_activity_select_entries">Selectați intrările</string>
+    <string name="title_activity_import_entries">Selectați intrările</string>
     <string name="dialog_wipe_entries_title">Ştergeţi intrările</string>
     <string name="dialog_wipe_entries_message">Seiful dvs. conține deja intrări. Doriţi să ştergeţi aceste intrări înainte de a importa acest fişier?\n\n<b>Făcând acest lucru, vei pierde permanent accesul la intrările existente din seif.</b></string>
     <string name="dialog_wipe_entries_checkbox">Ştergeţi conţinutul seifului</string>

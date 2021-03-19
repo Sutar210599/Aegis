@@ -8,9 +8,10 @@ import java.security.NoSuchAlgorithmException;
 
 public class SteamInfo extends TotpInfo {
     public static final String ID = "steam";
+    public static final int DIGITS = 5;
 
     public SteamInfo(byte[] secret) throws OtpInfoException {
-        super(secret, "SHA1", 5, 30);
+        super(secret, OtpInfo.DEFAULT_ALGORITHM, DIGITS, TotpInfo.DEFAULT_PERIOD);
     }
 
     public SteamInfo(byte[] secret, String algorithm, int digits, int period) throws OtpInfoException {
@@ -28,7 +29,13 @@ public class SteamInfo extends TotpInfo {
     }
 
     @Override
-    public String getType() {
+    public String getTypeId() {
         return ID;
+    }
+
+    @Override
+    public String getType() {
+        String id = getTypeId();
+        return id.substring(0, 1).toUpperCase() + id.substring(1);
     }
 }

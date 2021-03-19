@@ -11,10 +11,9 @@
     <string name="save">Speichern</string>
     <string name="issuer">Herausgeber</string>
     <string name="settings">Einstellungen</string>
-    <string name="pref_appearance_group_title">Erscheinungsbild</string>
-    <string name="pref_security_group_title">Sicherheit</string>
-    <string name="pref_tools_group_title">Werkzeuge</string>
-    <string name="pref_backups_group_title">Sicherungskopien</string>
+    <string name="pref_section_appearance_title">Erscheinungsbild</string>
+    <string name="pref_section_security_title">Sicherheit</string>
+    <string name="pref_section_backups_title">Sicherungskopien</string>
     <string name="pref_select_theme_title">Design</string>
     <string name="pref_view_mode_title">Ansichtsmodus</string>
     <string name="pref_lang_title">Sprache</string>
@@ -98,7 +97,6 @@
     <string name="unlock">Entsperren</string>
     <string name="biometrics">Biometrie</string>
     <string name="advanced">Fortgeschritten</string>
-    <string name="seconds">Sekunden</string>
     <string name="counter">Zähler</string>
     <string name="digits">Ziffern</string>
     <string name="secret">Schlüssel</string>
@@ -194,10 +192,7 @@
     <string name="adding_new_slot_error">Beim Versuch, einen neuen Slot hinzuzufügen, ist ein Fehler aufgetreten:</string>
     <string name="progressbar_error">Die Skala der Animationsdauer kann nicht zurückgesetzt werden. Fortschrittsbalken werden unsichtbar sein.</string>
     <string name="details">Details</string>
-    <string name="filter">Filter</string>
-    <string name="filter_ungrouped">Nicht gruppiert</string>
     <string name="lock">Sperren</string>
-    <string name="all">Alle</string>
     <string name="name">Name</string>
     <string name="no_group">Keine Gruppe</string>
     <string name="sort_alphabetically">Herausgeber (A bis Z)</string>
@@ -246,8 +241,8 @@
     <string name="changelog">Änderungsprotokoll</string>
     <string name="whats_new">Was ist neu</string>
     <string name="github_description">Quellcode, Probleme und Informationen</string>
-    <string name="licenses">Lizenzen</string>
-    <string name="licenses_description">Lizenzen der Bibliotheken, die Aegis verwendet</string>
+    <string name="third_party_licenses">Lizenzen</string>
+    <string name="third_party_licenses_description">Lizenzen der Bibliotheken, die Aegis verwendet</string>
     <string name="country_netherlands">Niederlande</string>
     <string name="email_us">Eine E-Mail schreiben</string>
     <string name="visit_website">Besuche unsere Website</string>
@@ -294,7 +289,7 @@
     <string name="title_activity_edit_entry">Eintrag bearbeiten</string>
     <string name="title_activity_scan_qr">Scanne einen QR-Code</string>
     <string name="title_activity_manage_slots">Schlüsselplätze verwalten</string>
-    <string name="title_activity_select_entries">Einträge auswählen</string>
+    <string name="title_activity_import_entries">Einträge auswählen</string>
     <string name="dialog_wipe_entries_title">Einträge löschen</string>
     <string name="dialog_wipe_entries_message">Deine Datenbank enthält bereits Einträge. Möchtest du diese Einträge entfernen, bevor diese Datei importiert wird?\n\n<b>Wenn du dies tust, verlierst du dauerhaft den Zugriff auf die vorhandenen Einträge in der Datenbank.</b></string>
     <string name="dialog_wipe_entries_checkbox">Datenbankinhalt löschen</string>

@@ -13,7 +13,6 @@ import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.SubMenu;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -30,8 +29,10 @@ import com.beemdevelopment.aegis.ViewMode;
 import com.beemdevelopment.aegis.helpers.BitmapHelper;
 import com.beemdevelopment.aegis.helpers.FabScrollHelper;
 import com.beemdevelopment.aegis.helpers.PermissionHelper;
+import com.beemdevelopment.aegis.helpers.QrCodeAnalyzer;
 import com.beemdevelopment.aegis.otp.GoogleAuthInfo;
 import com.beemdevelopment.aegis.otp.GoogleAuthInfoException;
+import com.beemdevelopment.aegis.ui.dialogs.Dialogs;
 import com.beemdevelopment.aegis.ui.fragments.BackupsPreferencesFragment;
 import com.beemdevelopment.aegis.ui.fragments.PreferencesFragment;
 import com.beemdevelopment.aegis.ui.views.EntryListView;
@@ -56,8 +57,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.TreeSet;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class MainActivity extends AegisActivity implements EntryListView.Listener {
     // activity request codes
@@ -76,7 +77,7 @@ public class MainActivity extends AegisActivity implements EntryListView.Listene
     private AegisApplication _app;
     private VaultManager _vault;
     private boolean _loaded;
-    private String _selectedGroup;
+    private List<String> _selectedGroups;
     private boolean _searchSubmitted;
 
     private boolean _isAuthenticating;
@@ -98,6 +99,7 @@ public class MainActivity extends AegisActivity implements EntryListView.Listene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setSupportActionBar(findViewById(R.id.toolbar));
 
         _app = (AegisApplication) getApplication();
         _vault = _app.getVaultManager();
@@ -127,7 +129,7 @@ public class MainActivity extends AegisActivity implements EntryListView.Listene
 
              view.findViewById(R.id.fab_enter).setOnClickListener(v1 -> {
                  dialog.dismiss();
-                 startEditEntryActivity(CODE_ADD_ENTRY, null, true);
+                 startEditEntryActivityForManual(CODE_ADD_ENTRY);
              });
              view.findViewById(R.id.fab_scan_image).setOnClickListener(v2 -> {
                  dialog.dismiss();
@@ -240,21 +242,30 @@ public class MainActivity extends AegisActivity implements EntryListView.Listene
         }
     }
 
-    private void startEditEntryActivity(int requestCode, VaultEntry entry, boolean isNew) {
+    private void startEditEntryActivityForNew(int requestCode, VaultEntry entry) {
         Intent intent = new Intent(this, EditEntryActivity.class);
-        if (isNew) {
-            intent.putExtra("newEntry", entry != null ? entry : VaultEntry.getDefault());
-        } else {
-            intent.putExtra("entryUUID", entry.getUUID());
-        }
-        intent.putExtra("selectedGroup", _selectedGroup);
+        intent.putExtra("newEntry", entry);
+        intent.putExtra("isManual", false);
+        startActivityForResult(intent, requestCode);
+    }
+
+    private void startEditEntryActivityForManual(int requestCode) {
+        Intent intent = new Intent(this, EditEntryActivity.class);
+        intent.putExtra("newEntry", VaultEntry.getDefault());
+        intent.putExtra("isManual", true);
+        startActivityForResult(intent, requestCode);
+    }
+
+    private void startEditEntryActivity(int requestCode, VaultEntry entry) {
+        Intent intent = new Intent(this, EditEntryActivity.class);
+        intent.putExtra("entryUUID", entry.getUUID());
         startActivityForResult(intent, requestCode);
     }
 
     private void onScanResult(Intent data) {
         List<VaultEntry> entries = (ArrayList<VaultEntry>) data.getSerializableExtra("entries");
         if (entries.size() == 1) {
-            startEditEntryActivity(CODE_ADD_ENTRY, entries.get(0), true);
+            startEditEntryActivityForNew(CODE_ADD_ENTRY, entries.get(0));
         } else {
             for (VaultEntry entry : entries) {
                 _vault.addEntry(entry);
@@ -289,7 +300,10 @@ public class MainActivity extends AegisActivity implements EntryListView.Listene
     }
 
     private void onScanImageResult(Intent intent) {
-        Uri inputFile = (intent.getData());
+        decodeQrCodeImage(intent.getData());
+    }
+
+    private void decodeQrCodeImage(Uri inputFile) {
         Bitmap bitmap;
 
         try {
@@ -297,7 +311,7 @@ public class MainActivity extends AegisActivity implements EntryListView.Listene
 
             try (InputStream inputStream = getContentResolver().openInputStream(inputFile)) {
                 bitmap = BitmapFactory.decodeStream(inputStream, null, bmOptions);
-                bitmap = BitmapHelper.resize(bitmap, 640, 480);
+                bitmap = BitmapHelper.resize(bitmap, QrCodeAnalyzer.RESOLUTION.getWidth(), QrCodeAnalyzer.RESOLUTION.getHeight());
             }
 
             int[] intArray = new int[bitmap.getWidth() * bitmap.getHeight()];
@@ -312,53 +326,16 @@ public class MainActivity extends AegisActivity implements EntryListView.Listene
             GoogleAuthInfo info = GoogleAuthInfo.parseUri(result.getText());
             VaultEntry entry = new VaultEntry(info);
 
-            startEditEntryActivity(CODE_ADD_ENTRY, entry, true);
+            startEditEntryActivityForNew(CODE_ADD_ENTRY, entry);
         } catch (NotFoundException | IOException | ChecksumException | FormatException | GoogleAuthInfoException e) {
             e.printStackTrace();
             Dialogs.showErrorDialog(this, R.string.unable_to_read_qrcode, e);
         }
     }
 
-    private void updateGroupFilterMenu() {
-        SubMenu menu = _menu.findItem(R.id.action_filter).getSubMenu();
-        for (int i = menu.size() - 1; i >= 0; i--) {
-            MenuItem item = menu.getItem(i);
-            if (item.getItemId() == R.id.menu_filter_all) {
-                continue;
-            }
-            menu.removeItem(item.getItemId());
-        }
-
-        // if the group no longer exists, switch back to 'All'
-        TreeSet<String> groups = _vault.getGroups();
-        if (_selectedGroup != null && !groups.contains(_selectedGroup)) {
-            menu.findItem(R.id.menu_filter_all).setChecked(true);
-            setGroupFilter(null);
-        }
-
-        for (String group : groups) {
-            MenuItem item = menu.add(R.id.action_filter_group, Menu.NONE, Menu.NONE, group);
-            if (group.equals(_selectedGroup)) {
-                item.setChecked(true);
-            }
-        }
-
-        if (groups.size() > 0) {
-            menu.add(R.id.action_filter_group, Menu.NONE, 10, R.string.filter_ungrouped);
-        }
-
-        menu.setGroupCheckable(R.id.action_filter_group, true, true);
-    }
-
     private void updateSortCategoryMenu() {
         SortCategory category = getPreferences().getCurrentSortCategory();
         _menu.findItem(category.getMenuItem()).setChecked(true);
-    }
-
-    private void setGroupFilter(String group) {
-        getSupportActionBar().setSubtitle(group);
-        _selectedGroup = group;
-        _entryListView.setGroupFilter(group, true);
     }
 
     private void onDoIntroResult() {
@@ -452,8 +429,25 @@ public class MainActivity extends AegisActivity implements EntryListView.Listene
 
             if (info != null) {
                 VaultEntry entry = new VaultEntry(info);
-                startEditEntryActivity(CODE_ADD_ENTRY, entry, true);
+                startEditEntryActivityForNew(CODE_ADD_ENTRY, entry);
             }
+        }
+    }
+
+    private void handleSharedImage() {
+        if (_app.isVaultLocked()) {
+            return;
+        }
+
+        Intent intent = getIntent();
+        String action = intent.getAction();
+        Uri uri = intent.getParcelableExtra(Intent.EXTRA_STREAM);
+
+        if (Intent.ACTION_SEND.equals(action) && uri != null) {
+            intent.setAction(null);
+            intent.removeExtra(Intent.EXTRA_STREAM);
+
+            decodeQrCodeImage(uri);
         }
     }
 
@@ -490,10 +484,8 @@ public class MainActivity extends AegisActivity implements EntryListView.Listene
         if (_app.isVaultLocked()) {
             startAuthActivity(false);
         } else if (_loaded) {
-            // update the list of groups in the filter menu
-            if (_menu != null) {
-                updateGroupFilterMenu();
-            }
+            // update the list of groups in the entry list view so that the chip gets updated
+            _entryListView.setGroups(_vault.getGroups());
 
             // refresh all codes to prevent showing old ones
             _entryListView.refresh(false);
@@ -503,6 +495,7 @@ public class MainActivity extends AegisActivity implements EntryListView.Listene
         }
 
         handleDeeplink();
+        handleSharedImage();
         updateLockIcon();
         doShortcutActions();
         updateBackupErrorBar();
@@ -515,8 +508,7 @@ public class MainActivity extends AegisActivity implements EntryListView.Listene
             _entryListView.setSearchFilter(null);
 
             collapseSearchView();
-            setTitle("Aegis");
-            setGroupFilter(_selectedGroup);
+            setTitle(R.string.app_name);
             return;
         }
 
@@ -543,7 +535,7 @@ public class MainActivity extends AegisActivity implements EntryListView.Listene
         getMenuInflater().inflate(R.menu.menu_main, menu);
         updateLockIcon();
         if (_loaded) {
-            updateGroupFilterMenu();
+            _entryListView.setGroups(_vault.getGroups());
             updateSortCategoryMenu();
         }
 
@@ -596,16 +588,6 @@ public class MainActivity extends AegisActivity implements EntryListView.Listene
                 _app.lock(true);
                 return true;
             default:
-                if (item.getGroupId() == R.id.action_filter_group) {
-                    item.setChecked(true);
-
-                    String group = null;
-                    if (item.getItemId() != R.id.menu_filter_all) {
-                        group = item.getTitle().toString();
-                    }
-                    setGroupFilter(group);
-                }
-
                 if (item.getGroupId() == R.id.action_sort_category) {
                     item.setChecked(true);
 
@@ -786,7 +768,7 @@ public class MainActivity extends AegisActivity implements EntryListView.Listene
                         return true;
 
                     case R.id.action_edit:
-                        startEditEntryActivity(CODE_EDIT_ENTRY, _selectedEntries.get(0), false);
+                        startEditEntryActivity(CODE_EDIT_ENTRY, _selectedEntries.get(0));
                         mode.finish();
                         return true;
 
@@ -805,19 +787,19 @@ public class MainActivity extends AegisActivity implements EntryListView.Listene
                         return true;
 
                     case R.id.action_delete:
-                        Dialogs.showDeleteEntriesDialog(MainActivity.this, (d, which) -> {
+                        Dialogs.showDeleteEntriesDialog(MainActivity.this, _selectedEntries.stream().map(VaultEntry::getIssuer).collect(Collectors.toList()), (d, which) -> {
                             deleteEntries(_selectedEntries);
 
                             for (VaultEntry entry : _selectedEntries) {
                                 if (entry.getGroup() != null) {
                                     if (!_vault.getGroups().contains(entry.getGroup())) {
-                                        updateGroupFilterMenu();
+                                        _entryListView.setGroups(_vault.getGroups());
                                     }
                                 }
                             }
 
                             mode.finish();
-                        }, _selectedEntries.size());
+                        });
                         return true;
                     default:
                         return false;

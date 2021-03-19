@@ -9,9 +9,8 @@
     <string name="save">ಉಳಿಸು</string>
     <string name="issuer">ನೀಡುವವರು</string>
     <string name="settings">ಸಿದ್ಢತೆಗಳು</string>
-    <string name="pref_appearance_group_title">ನೋಟ</string>
-    <string name="pref_security_group_title">ಭದ್ರತೆ</string>
-    <string name="pref_tools_group_title">ಉಪಕರಣಗಳು</string>
+    <string name="pref_section_appearance_title">ನೋಟ</string>
+    <string name="pref_section_security_title">ಭದ್ರತೆ</string>
     <string name="pref_select_theme_title">ಥೀಮ್</string>
     <string name="pref_view_mode_title">ವೀಕ್ಷಣೆಯ ರೀತಿ</string>
     <string name="pref_lang_title">ಭಾಷೆ</string>
@@ -43,7 +42,6 @@
     <string name="set_password_confirm">ದಯವಿಟ್ಟು ಗುಪ್ತಪದವನ್ನು ಖಚಿತಪಡಿಸಿ</string>
     <string name="unlock">ಬೀಗ ತೆಗೆದು ಹಾಕು</string>
     <string name="advanced">ಸುಧಾರಿತ</string>
-    <string name="seconds">ಸೆಕೆಂಡುಗಳು</string>
     <string name="counter">ಎಣಿಕೆ ಮಾಡುವ ಯಂತ್ರ</string>
     <string name="digits">ಅಂಕೆಗಳು</string>
     <string name="secret">ರಹಸ್ಯ</string>
@@ -102,9 +100,7 @@
     <string name="adding_new_slot_error">ಹೊಸ ಸ್ಲಾಟನ್ನು ಸೇರಿಸಲು ಪ್ರಯತ್ನಿಸುವಾಗ ಒಂದು ದೋಷ ಸಂಭವಿಸಿದೆ:</string>
     <string name="progressbar_error">ಆನಿಮೇಟರಿನ ಅವಧಿಯ ಅಳತೆಯನ್ನು ಮರುಹೊಂದಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. ಪ್ರಗತಿ ಬಾರುಗಳು ಅಗೋಚರವಿರುತ್ತವೆ.</string>
     <string name="details">ವಿವರಗಳು</string>
-    <string name="filter">ಮಿತಿಗೊಳಿಸು</string>
     <string name="lock">ಬೀಗ ಹಾಕು</string>
-    <string name="all">ಎಲ್ಲಾ</string>
     <string name="name">ಹೆಸರು</string>
     <string name="no_group">ಗುಂಪಿಲ್ಲ</string>
     <string name="sort_alphabetically">ನೀಡುವವರು (ವರ್ಣಮಾಲೆಯಂತೆ)</string>
@@ -136,8 +132,8 @@
     <string name="changelog">ಬದಲಾವಣೆ ಲಾಗ್</string>
     <string name="whats_new">ಹೊಸತೇನಿದೆ</string>
     <string name="github_description">ಮೂಲ ಕೋಡ್, ಸಮಸ್ಯೆಗಳು ಹಾಗು ಮಾಹಿತಿ</string>
-    <string name="licenses">ಪರವಾನಗಿಗಳು</string>
-    <string name="licenses_description">Aegis ಉಪಯೋಗಿಸುವ ಲೈಬ್ರೆರಿಗಳ ಪರವಾನಗಿಗಳು</string>
+    <string name="third_party_licenses">ಪರವಾನಗಿಗಳು</string>
+    <string name="third_party_licenses_description">Aegis ಉಪಯೋಗಿಸುವ ಲೈಬ್ರೆರಿಗಳ ಪರವಾನಗಿಗಳು</string>
     <string name="country_netherlands">ನೆದರ್ಲೆಂಡ್ಸ್</string>
     <string name="email_us">ಈಮೇಲನ್ನು ಬರಿ</string>
     <string name="visit_website">ನಮ್ಮ ಅಂತರ್ಜಾಲದ ಪುಟವನ್ನು ಭೇಟಿ ಮಾಡು</string>

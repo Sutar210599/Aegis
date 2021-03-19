@@ -11,10 +11,9 @@
     <string name="save">Enregistrer</string>
     <string name="issuer">Émetteur</string>
     <string name="settings">Préférences</string>
-    <string name="pref_appearance_group_title">Apparence</string>
-    <string name="pref_security_group_title">Sécurité</string>
-    <string name="pref_tools_group_title">Outils</string>
-    <string name="pref_backups_group_title">Sauvegardes</string>
+    <string name="pref_section_appearance_title">Apparence</string>
+    <string name="pref_section_security_title">Sécurité</string>
+    <string name="pref_section_backups_title">Sauvegardes</string>
     <string name="pref_select_theme_title">Thème</string>
     <string name="pref_view_mode_title">Mode d\'affichage</string>
     <string name="pref_lang_title">Langue</string>
@@ -98,7 +97,6 @@
     <string name="unlock">Déverrouiller</string>
     <string name="biometrics">Biométrie</string>
     <string name="advanced">Avancé</string>
-    <string name="seconds">secondes</string>
     <string name="counter">Compteur</string>
     <string name="digits">Chiffres</string>
     <string name="secret">Code secret</string>
@@ -194,10 +192,7 @@
     <string name="adding_new_slot_error">Une erreur est survenue en essayant d\'ajouter un nouvel emplacement :</string>
     <string name="progressbar_error">Impossible de réinitialiser l\'échelle de durée d\'animation. Les barres de progression seront invisibles.</string>
     <string name="details">Détails</string>
-    <string name="filter">Filtre</string>
-    <string name="filter_ungrouped">Non groupés</string>
     <string name="lock">Verrouiller</string>
-    <string name="all">Tous</string>
     <string name="name">Nom</string>
     <string name="no_group">Aucun groupe</string>
     <string name="sort_alphabetically">Émetteur (de A à Z)</string>
@@ -246,8 +241,8 @@
     <string name="changelog">Historique des modifications</string>
     <string name="whats_new">Les nouveautés</string>
     <string name="github_description">Code source, problèmes et informations</string>
-    <string name="licenses">Licences</string>
-    <string name="licenses_description">Licences des bibliothèques utilisées par Aegis</string>
+    <string name="third_party_licenses">Licences</string>
+    <string name="third_party_licenses_description">Licences des bibliothèques utilisées par Aegis</string>
     <string name="country_netherlands">Pays-Bas</string>
     <string name="email_us">Écrire un email</string>
     <string name="visit_website">Visiter notre site internet</string>
@@ -294,7 +289,7 @@
     <string name="title_activity_edit_entry">Modifier l\'entrée</string>
     <string name="title_activity_scan_qr">Scanner un code QR</string>
     <string name="title_activity_manage_slots">Gérer les emplacements de clés</string>
-    <string name="title_activity_select_entries">Sélectionner les entrées</string>
+    <string name="title_activity_import_entries">Sélectionner les entrées</string>
     <string name="dialog_wipe_entries_title">Effacer les entrées</string>
     <string name="dialog_wipe_entries_message">Votre coffre-fort contient déjà des entrées. Voulez-vous supprimer ces entrées avant d\'importer ce fichier ?\n\n<b>En faisant cela, vous perdrez définitivement l\'accès aux entrées existantes dans le coffre-fort.</b></string>
     <string name="dialog_wipe_entries_checkbox">Effacer le contenu du coffre-fort</string>

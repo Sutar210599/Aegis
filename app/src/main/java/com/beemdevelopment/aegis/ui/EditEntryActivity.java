@@ -1,6 +1,5 @@
 package com.beemdevelopment.aegis.ui;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -13,17 +12,16 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.AdapterView;
-import android.widget.EditText;
+import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Spinner;
-import android.widget.TableRow;
 
-import androidx.annotation.ArrayRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
@@ -34,8 +32,8 @@ import com.avito.android.krop.KropView;
 import com.beemdevelopment.aegis.R;
 import com.beemdevelopment.aegis.encoding.Base32;
 import com.beemdevelopment.aegis.encoding.EncodingException;
+import com.beemdevelopment.aegis.helpers.DropdownHelper;
 import com.beemdevelopment.aegis.helpers.EditTextHelper;
-import com.beemdevelopment.aegis.helpers.SpinnerHelper;
 import com.beemdevelopment.aegis.helpers.TextDrawableHelper;
 import com.beemdevelopment.aegis.otp.GoogleAuthInfo;
 import com.beemdevelopment.aegis.otp.HotpInfo;
@@ -43,6 +41,7 @@ import com.beemdevelopment.aegis.otp.OtpInfo;
 import com.beemdevelopment.aegis.otp.OtpInfoException;
 import com.beemdevelopment.aegis.otp.SteamInfo;
 import com.beemdevelopment.aegis.otp.TotpInfo;
+import com.beemdevelopment.aegis.ui.dialogs.Dialogs;
 import com.beemdevelopment.aegis.util.Cloner;
 import com.beemdevelopment.aegis.vault.VaultEntry;
 import com.beemdevelopment.aegis.vault.VaultManager;
@@ -50,9 +49,12 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.TreeSet;
 import java.util.UUID;
@@ -64,6 +66,7 @@ public class EditEntryActivity extends AegisActivity {
     private static final int PICK_IMAGE_REQUEST = 0;
 
     private boolean _isNew = false;
+    private boolean _isManual = false;
     private VaultEntry _origEntry;
     private TreeSet<String> _groups;
     private boolean _hasCustomIcon = false;
@@ -73,20 +76,19 @@ public class EditEntryActivity extends AegisActivity {
     private CircleImageView _iconView;
     private ImageView _saveImageButton;
 
-    private EditText _textName;
-    private EditText _textIssuer;
-    private EditText _textPeriod;
-    private EditText _textCounter;
-    private EditText _textDigits;
-    private EditText _textSecret;
+    private TextInputEditText _textName;
+    private TextInputEditText _textIssuer;
+    private TextInputEditText _textPeriodCounter;
+    private TextInputLayout _textPeriodCounterLayout;
+    private TextInputEditText _textDigits;
+    private TextInputLayout _textDigitsLayout;
+    private TextInputEditText _textSecret;
 
-    private TableRow _rowPeriod;
-    private TableRow _rowCounter;
-
-    private Spinner _spinnerType;
-    private Spinner _spinnerAlgo;
-    private Spinner _spinnerGroup;
-    private List<String> _spinnerGroupList = new ArrayList<>();
+    private AutoCompleteTextView _dropdownType;
+    private AutoCompleteTextView _dropdownAlgo;
+    private TextInputLayout _dropdownAlgoLayout;
+    private AutoCompleteTextView _dropdownGroup;
+    private List<String> _dropdownGroupList = new ArrayList<>();
 
     private KropView _kropView;
 
@@ -99,6 +101,7 @@ public class EditEntryActivity extends AegisActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_entry);
+        setSupportActionBar(findViewById(R.id.toolbar));
 
         _vault = getApp().getVaultManager();
         _groups = _vault.getGroups();
@@ -114,11 +117,10 @@ public class EditEntryActivity extends AegisActivity {
             _origEntry = _vault.getEntryByUUID(entryUUID);
         } else {
             _origEntry = (VaultEntry) intent.getSerializableExtra("newEntry");
+            _isManual = intent.getBooleanExtra("isManual", false);
             _isNew = true;
             setTitle(R.string.add_new_entry);
         }
-
-        String selectedGroup = intent.getStringExtra("selectedGroup");
 
         // set up fields
         _iconView = findViewById(R.id.profile_drawable);
@@ -126,21 +128,39 @@ public class EditEntryActivity extends AegisActivity {
         _saveImageButton = findViewById(R.id.iv_saveImage);
         _textName = findViewById(R.id.text_name);
         _textIssuer = findViewById(R.id.text_issuer);
-        _textPeriod = findViewById(R.id.text_period);
+        _textPeriodCounter = findViewById(R.id.text_period_counter);
+        _textPeriodCounterLayout = findViewById(R.id.text_period_counter_layout);
         _textDigits = findViewById(R.id.text_digits);
-        _rowPeriod = findViewById(R.id.row_period);
-        _textCounter = findViewById(R.id.text_counter);
-        _rowCounter = findViewById(R.id.row_counter);
+        _textDigitsLayout = findViewById(R.id.text_digits_layout);
         _textSecret = findViewById(R.id.text_secret);
-        _spinnerType = findViewById(R.id.spinner_type);
-        SpinnerHelper.fillSpinner(this, _spinnerType, R.array.otp_types_array);
-        _spinnerAlgo = findViewById(R.id.spinner_algo);
-        SpinnerHelper.fillSpinner(this, _spinnerAlgo, R.array.otp_algo_array);
-        _spinnerGroup = findViewById(R.id.spinner_group);
-        updateGroupSpinnerList();
-        SpinnerHelper.fillSpinner(this, _spinnerGroup, _spinnerGroupList);
+        _dropdownType = findViewById(R.id.dropdown_type);
+        DropdownHelper.fillDropdown(this, _dropdownType, R.array.otp_types_array);
+        _dropdownAlgoLayout = findViewById(R.id.dropdown_algo_layout);
+        _dropdownAlgo = findViewById(R.id.dropdown_algo);
+        DropdownHelper.fillDropdown(this, _dropdownAlgo, R.array.otp_algo_array);
+        _dropdownGroup = findViewById(R.id.dropdown_group);
+        updateGroupDropdownList();
+        DropdownHelper.fillDropdown(this, _dropdownGroup, _dropdownGroupList);
+
+        // if this is NOT a manually entered entry, move the "Secret" field from basic to advanced settings
+        if (!_isNew || (_isNew && !_isManual)) {
+            LinearLayout layoutSecret = findViewById(R.id.layout_secret);
+            LinearLayout layoutBasic = findViewById(R.id.layout_basic);
+            LinearLayout layoutAdvanced = findViewById(R.id.layout_advanced);
+            layoutBasic.removeView(layoutSecret);
+            layoutAdvanced.addView(layoutSecret, 0);
+            ((LinearLayout.LayoutParams) layoutSecret.getLayoutParams()).topMargin = 0;
+
+            if (_isNew && !_isManual) {
+                setViewEnabled(layoutAdvanced, false);
+            }
+        } else {
+            LinearLayout layoutTypeAlgo = findViewById(R.id.layout_type_algo);
+            ((LinearLayout.LayoutParams) layoutTypeAlgo.getLayoutParams()).topMargin = 0;
+        }
 
         _advancedSettingsHeader = findViewById(R.id.accordian_header);
+        _advancedSettingsHeader.setOnClickListener(v -> openAdvancedSettings());
         _advancedSettings = findViewById(R.id.expandableLayout);
 
         // fill the fields with values if possible
@@ -162,11 +182,11 @@ public class EditEntryActivity extends AegisActivity {
 
         OtpInfo info = _origEntry.getInfo();
         if (info instanceof TotpInfo) {
-            _textPeriod.setText(Integer.toString(((TotpInfo) info).getPeriod()));
-            _rowPeriod.setVisibility(View.VISIBLE);
+            _textPeriodCounterLayout.setHint(R.string.period_hint);
+            _textPeriodCounter.setText(Integer.toString(((TotpInfo) info).getPeriod()));
         } else if (info instanceof HotpInfo) {
-            _textCounter.setText(Long.toString(((HotpInfo) info).getCounter()));
-            _rowCounter.setVisibility(View.VISIBLE);
+            _textPeriodCounterLayout.setHint(R.string.counter);
+            _textPeriodCounter.setText(Long.toString(((HotpInfo) info).getCounter()));
         } else {
             throw new RuntimeException(String.format("Unsupported OtpInfo type: %s", info.getClass()));
         }
@@ -178,11 +198,9 @@ public class EditEntryActivity extends AegisActivity {
             _textSecret.setText(secretString);
         }
 
-        String type = _origEntry.getInfo().getType();
-        _spinnerType.setSelection(getStringResourceIndex(R.array.otp_types_array, type), false);
-
-        String algo = _origEntry.getInfo().getAlgorithm(false);
-        _spinnerAlgo.setSelection(getStringResourceIndex(R.array.otp_algo_array, algo), false);
+        _dropdownType.setText(_origEntry.getInfo().getType(), false);
+        _dropdownAlgo.setText(_origEntry.getInfo().getAlgorithm(false), false);
+        updateAdvancedFieldStatus(_origEntry.getInfo().getTypeId());
 
         String group = _origEntry.getGroup();
         setGroup(group);
@@ -192,81 +210,72 @@ public class EditEntryActivity extends AegisActivity {
         _textName.addTextChangedListener(_iconChangeListener);
 
         // show/hide period and counter fields on type change
-        _spinnerType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String type = _spinnerType.getSelectedItem().toString().toLowerCase();
-                switch (type) {
-                    case TotpInfo.ID:
-                    case SteamInfo.ID:
-                        _rowCounter.setVisibility(View.GONE);
-                        _rowPeriod.setVisibility(View.VISIBLE);
-                        break;
-                    case HotpInfo.ID:
-                        _rowPeriod.setVisibility(View.GONE);
-                        _rowCounter.setVisibility(View.VISIBLE);
-                        break;
-                    default:
-                        throw new RuntimeException(String.format("Unsupported OTP type: %s", type));
-                }
+        _dropdownType.setOnItemClickListener((parent, view, position, id) -> {
+            String type = _dropdownType.getText().toString().toLowerCase();
+            switch (type) {
+                case SteamInfo.ID:
+                    _dropdownAlgo.setText(OtpInfo.DEFAULT_ALGORITHM, false);
+                    _textPeriodCounterLayout.setHint(R.string.period_hint);
+                    _textPeriodCounter.setText(String.valueOf(TotpInfo.DEFAULT_PERIOD));
+                    _textDigits.setText(String.valueOf(SteamInfo.DIGITS));
+                    break;
+                case TotpInfo.ID:
+                    _textPeriodCounterLayout.setHint(R.string.period_hint);
+                    _textPeriodCounter.setText(String.valueOf(TotpInfo.DEFAULT_PERIOD));
+                    _textDigits.setText(String.valueOf(OtpInfo.DEFAULT_DIGITS));
+                    break;
+                case HotpInfo.ID:
+                    _textPeriodCounterLayout.setHint(R.string.counter);
+                    _textPeriodCounter.setText(String.valueOf(HotpInfo.DEFAULT_COUNTER));
+                    _textDigits.setText(String.valueOf(OtpInfo.DEFAULT_DIGITS));
+                    break;
+                default:
+                    throw new RuntimeException(String.format("Unsupported OTP type: %s", type));
             }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        final Activity activity = this;
-        _spinnerGroup.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            private int prevPosition;
-
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (position == _spinnerGroupList.size() - 1) {
-                    Dialogs.showTextInputDialog(activity, R.string.set_group, R.string.group_name_hint, text -> {
-                        String str = new String(text);
-                        if (str.isEmpty()) {
-                            return;
-                        }
-                        _groups.add(str);
-                        // reset the selection to "No group" to work around a quirk
-                        _spinnerGroup.setSelection(0, false);
-                        updateGroupSpinnerList();
-                        _spinnerGroup.setSelection(_spinnerGroupList.indexOf(str), false);
-                    });
-                    _spinnerGroup.setSelection(prevPosition, false);
-                } else {
-                    prevPosition = position;
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
+            updateAdvancedFieldStatus(type);
         });
 
         _iconView.setOnClickListener(v -> {
             startIconSelectionActivity();
         });
 
-        _advancedSettingsHeader.setOnClickListener(v -> openAdvancedSettings());
+        _dropdownGroup.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            private int prevPosition = _dropdownGroupList.indexOf(_dropdownGroup.getText().toString());
 
-        // automatically open advanced settings since 'Secret' is required.
-        if (_isNew) {
-            openAdvancedSettings();
-            setGroup(selectedGroup);
-        }
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (position == _dropdownGroupList.size() - 1) {
+                    Dialogs.showTextInputDialog(EditEntryActivity.this, R.string.set_group, R.string.group_name_hint, text -> {
+                        String groupName = new String(text);
+                        if (!groupName.isEmpty()) {
+                            _groups.add(groupName);
+                            updateGroupDropdownList();
+                            _dropdownGroup.setText(groupName, false);
+                        }
+                    });
+                    _dropdownGroup.setText(_dropdownGroupList.get(prevPosition), false);
+                } else {
+                    prevPosition = position;
+                }
+            }
+        });
+    }
+
+    private void updateAdvancedFieldStatus(String otpType) {
+        boolean enabled = !otpType.equals(SteamInfo.ID) && (!_isNew || _isManual);
+        _textDigitsLayout.setEnabled(enabled);
+        _textPeriodCounterLayout.setEnabled(enabled);
+        _dropdownAlgoLayout.setEnabled(enabled);
     }
 
     private void setGroup(String groupName) {
-        if (groupName == null) {
-            return;
+        int pos = 0;
+        if (groupName != null) {
+            pos = _groups.contains(groupName) ? _groups.headSet(groupName).size() + 1 : 0;
         }
 
-        int pos = _groups.contains(groupName) ? _groups.headSet(groupName).size() : -1;
-        _spinnerGroup.setSelection(pos + 1, false);
+        _dropdownGroup.setText(_dropdownGroupList.get(pos), false);
     }
 
     private void openAdvancedSettings() {
@@ -315,12 +324,12 @@ public class EditEntryActivity extends AegisActivity {
         });
     }
 
-    private void updateGroupSpinnerList() {
+    private void updateGroupDropdownList() {
         Resources res = getResources();
-        _spinnerGroupList.clear();
-        _spinnerGroupList.add(res.getString(R.string.no_group));
-        _spinnerGroupList.addAll(_groups);
-        _spinnerGroupList.add(res.getString(R.string.new_group));
+        _dropdownGroupList.clear();
+        _dropdownGroupList.add(res.getString(R.string.no_group));
+        _dropdownGroupList.addAll(_groups);
+        _dropdownGroupList.add(res.getString(R.string.new_group));
     }
 
     @Override
@@ -370,7 +379,7 @@ public class EditEntryActivity extends AegisActivity {
                 onSave();
                 break;
             case R.id.action_delete:
-                Dialogs.showDeleteEntryDialog(this, (dialog, which) -> {
+                Dialogs.showDeleteEntriesDialog(this, Collections.singletonList(_origEntry.getIssuer()), (dialog, which) -> {
                     deleteAndFinish(_origEntry);
                 });
                 break;
@@ -493,7 +502,7 @@ public class EditEntryActivity extends AegisActivity {
 
     private int parsePeriod() throws ParseException {
         try {
-            return Integer.parseInt(_textPeriod.getText().toString());
+            return Integer.parseInt(_textPeriodCounter.getText().toString());
         } catch (NumberFormatException e) {
             throw new ParseException("Period is not an integer.");
         }
@@ -504,8 +513,8 @@ public class EditEntryActivity extends AegisActivity {
             throw new ParseException("Secret is a required field.");
         }
 
-        String type = _spinnerType.getSelectedItem().toString();
-        String algo = _spinnerAlgo.getSelectedItem().toString();
+        String type = _dropdownType.getText().toString();
+        String algo = _dropdownAlgo.getText().toString();
 
         int digits;
         try {
@@ -537,7 +546,7 @@ public class EditEntryActivity extends AegisActivity {
                 case HotpInfo.ID:
                     long counter;
                     try {
-                        counter = Long.parseLong(_textCounter.getText().toString());
+                        counter = Long.parseLong(_textPeriodCounter.getText().toString());
                     } catch (NumberFormatException e) {
                         throw new ParseException("Counter is not an integer.");
                     }
@@ -558,9 +567,9 @@ public class EditEntryActivity extends AegisActivity {
         entry.setIssuer(_textIssuer.getText().toString());
         entry.setName(_textName.getText().toString());
 
-        int groupPos = _spinnerGroup.getSelectedItemPosition();
+        int groupPos = _dropdownGroupList.indexOf(_dropdownGroup.getText().toString());
         if (groupPos != 0) {
-            String group = _spinnerGroupList.get(_spinnerGroup.getSelectedItemPosition());
+            String group = _dropdownGroupList.get(groupPos);
             entry.setGroup(group);
         } else {
             entry.setGroup(null);
@@ -606,6 +615,17 @@ public class EditEntryActivity extends AegisActivity {
         return true;
     }
 
+    private static void setViewEnabled(View view, boolean enabled) {
+        view.setEnabled(enabled);
+
+        if (view instanceof ViewGroup) {
+            ViewGroup group = (ViewGroup) view;
+            for (int i = 0; i < group.getChildCount(); i++) {
+                setViewEnabled(group.getChildAt(i), enabled);
+            }
+        }
+    }
+
     private TextWatcher _iconChangeListener = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -623,16 +643,6 @@ public class EditEntryActivity extends AegisActivity {
             }
         }
     };
-
-    private int getStringResourceIndex(@ArrayRes int id, String string) {
-        String[] res = getResources().getStringArray(id);
-        for (int i = 0; i < res.length; i++) {
-            if (res[i].equalsIgnoreCase(string)) {
-                return i;
-            }
-        }
-        return -1;
-    }
 
     private static class ParseException extends Exception {
         public ParseException(String message) {

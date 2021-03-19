@@ -15,11 +15,20 @@
     <string name="issuer">Issuer</string>
 
     <string name="settings">Preferences</string>
-    <string name="pref_behavior_group_title">Behavior</string>
-    <string name="pref_appearance_group_title">Appearance</string>
-    <string name="pref_security_group_title">Security</string>
-    <string name="pref_tools_group_title">Tools</string>
-    <string name="pref_backups_group_title">Backups</string>
+    <string name="pref_cat_appearance_app">App</string>
+    <string name="pref_cat_appearance_entries">Entries</string>
+    <string name="pref_cat_backups_android">Android</string>
+    <string name="pref_cat_backups_auto">Automatic backups</string>
+    <string name="pref_section_behavior_title">Behavior</string>
+    <string name="pref_section_behavior_summary">Customize the behavior when interacting with the entry list.</string>
+    <string name="pref_section_appearance_title">Appearance</string>
+    <string name="pref_section_appearance_summary">Adjust the theme, language and other settings that affect the appearance of the app.</string>
+    <string name="pref_section_security_title">Security</string>
+    <string name="pref_section_security_summary">Configure encryption, biometric unlock, auto lock and other security settings.</string>
+    <string name="pref_section_import_export_title">Import &amp; Export</string>
+    <string name="pref_section_import_export_summary">Import backups of Aegis or other authenticator apps. Create manual exports of your Aegis vault.</string>
+    <string name="pref_section_backups_title">Backups</string>
+    <string name="pref_section_backups_summary">Set up automatic backups to a location of your choosing or enable participation in Android\'s backup system.</string>
     <string name="pref_select_theme_title">Theme</string>
     <string name="pref_view_mode_title">View mode</string>
     <string name="pref_lang_title">Language</string>
@@ -41,7 +50,7 @@
     <string name="pref_backups_location_summary">Backups will be stored at</string>
     <string name="pref_backups_trigger_title">Trigger backup</string>
     <string name="pref_backups_trigger_summary">Manually trigger a backup</string>
-    <string name="pref_backups_versions_title">Amount of versions to keep</string>
+    <string name="pref_backups_versions_title">Number of versions to keep</string>
     <plurals name="pref_backups_versions_summary">
         <item quantity="one">Keep %1$d version of the backup</item>
         <item quantity="other">Keep %1$d versions of the backup</item>
@@ -77,6 +86,7 @@
     <string name="export_warning_accept">I understand the risk</string>
     <string name="export_format_aegis">Aegis (.JSON)</string>
     <string name="export_format_google_auth_uri">Text file (.TXT)</string>
+    <string name="export_format_hint">Export format</string>
 
     <string name="choose_authentication_method">Security</string>
     <string name="authentication_method_explanation">Aegis is a security-focused 2FA app. Tokens are stored in a vault, that can optionally be encrypted with a password of your choosing. If an attacker obtains your encrypted vault file, they will not be able to access the contents without knowing the password.\n\nWe\'ve preselected the option that we think would fit best for your device.</string>
@@ -100,17 +110,19 @@
     <string name="set_number">Please enter a number</string>
     <string name="set_password_confirm">Please confirm the password</string>
     <string name="invalid_password">The password is incorrect</string>
-    <string name="invalidated_biometrics">A change in your device\'s security settings has been detected. Please go to \"Aegis -> Settings -> Biometrics\" and re-enable biometric unlock.</string>
+    <string name="invalidated_biometrics">A change in your device\'s security settings has been detected. Please go to \"Aegis -> Settings -> Security -> Biometric unlock\" to disable and re-enable biometric unlock.</string>
     <string name="password_reminder">Please enter your password. We occasionally ask you to do this so that don\'t forget it.</string>
     <string name="enter_password_authy_message">It looks like your Authy tokens are encrypted. Please close Aegis, open Authy and unlock the tokens with your password. Instead, Aegis can also attempt to decrypt your Authy tokens for you, if you enter your password below.</string>
 
+    <string name="period_hint">Period (seconds)</string>
+    <string name="algorithm_hint">Hash function</string>
+    <string name="type">Type</string>
     <string name="share">Share</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="unlock">Unlock</string>
     <string name="biometrics">Biometrics</string>
     <string name="advanced">Advanced</string>
-    <string name="seconds">seconds</string>
     <string name="counter">Counter</string>
     <string name="digits">Digits</string>
     <string name="secret">Secret</string>
@@ -136,8 +148,10 @@
     <string name="snackbar_authentication_method">Please select an authentication method</string>
     <string name="encrypting_vault">Encrypting the vault</string>
     <string name="exporting_vault">Exporting the vault</string>
+    <string name="reading_file">Reading file</string>
     <string name="delete_entry">Delete entry</string>
     <string name="delete_entry_description">Are you sure you want to delete this entry?</string>
+    <string name="delete_entry_explanation">This action does not disable 2FA for <b>%s</b>. To prevent losing access, make sure that you have disabled 2FA or that you have an alternative way to generate codes for this service.</string>
     <string name="delete_entries">Delete entries</string>
     <plurals name="delete_entries_description">
         <item quantity="one">Are you sure you want to delete %d entry?</item>
@@ -208,12 +222,10 @@
     <string name="adding_new_slot_error">An error occurred while trying to add a new slot:</string>
     <string name="progressbar_error">Unable to reset animator duration scale. Progress bars will be invisible.</string>
     <string name="details">Details</string>
-    <string name="filter">Filter</string>
-    <string name="filter_ungrouped">Ungrouped</string>
     <string name="lock">Lock</string>
-    <string name="all">All</string>
     <string name="name">Name</string>
     <string name="no_group">No group</string>
+    <string name="sort">Sort</string>
     <string name="sort_alphabetically">Issuer (A to Z)</string>
     <string name="sort_alphabetically_reverse">Issuer (Z to A)</string>
     <string name="sort_alphabetically_name">Account (A to Z)</string>
@@ -221,6 +233,7 @@
     <string name="sort_custom">Custom</string>
     <string name="new_group">New group…</string>
     <string name="enter_group_name">Enter a group name</string>
+    <string name="group">Group</string>
     <string name="group_name_hint">Group name</string>
     <string name="preference_manage_groups">Edit groups</string>
     <string name="preference_manage_groups_summary">Manage and delete your groups here</string>
@@ -261,8 +274,10 @@
     <string name="whats_new">What\'s new</string>
     <string name="github" translatable="false">GitHub</string>
     <string name="github_description">Source code, issues and information</string>
-    <string name="licenses">Licenses</string>
-    <string name="licenses_description">Licenses of the libraries Aegis uses</string>
+    <string name="license">License</string>
+    <string name="license_description">Aegis Authenticator is licensed under GPLv3</string>
+    <string name="third_party_licenses">Third-party licenses</string>
+    <string name="third_party_licenses_description">Licenses of the third-party libraries Aegis uses</string>
     <string name="author_alex" translatable="false">Alexander Bakker</string>
     <string name="country_netherlands">Netherlands</string>
     <string name="author_michael" translatable="false">Michael Schättgen</string>
@@ -271,7 +286,7 @@
     <string name="about_support">Support</string>
     <string name="support_rate">Rate</string>
     <string name="support_rate_description">Support us by leaving a review in the Google Play Store</string>
-    <string name="webview_error">This device doesn\'t support web view, which is necessary to view the changelog. It is missing a system component.</string>
+    <string name="webview_error">This device doesn\'t support web view, which is necessary to view the changelog and the license. It is missing a system component.</string>
     <string name="email">Email</string>
     <string name="time_sync_warning_title">Automatic time synchronization</string>
     <string name="time_sync_warning_message">Aegis relies on the system time to be in sync to generate correct codes. A deviation of only a few seconds could result in incorrect codes. It looks like your device is not configured to automatically synchronize the time. Would you like to do so now?</string>
@@ -330,7 +345,7 @@
     <string name="title_activity_edit_entry">Edit entry</string>
     <string name="title_activity_scan_qr">Scan a QR code</string>
     <string name="title_activity_manage_slots">Manage key slots</string>
-    <string name="title_activity_select_entries">Select entries</string>
+    <string name="title_activity_import_entries">Import entries</string>
     <string name="dialog_wipe_entries_title">Wipe entries</string>
     <string name="dialog_wipe_entries_message">Your vault already contains entries. Do you want to remove these entries before importing this file?\n\n<b>In doing so, you will permanently lose access to the existing entries in the vault.</b></string>
     <string name="dialog_wipe_entries_checkbox">Wipe vault contents</string>
@@ -353,4 +368,5 @@
     <string name="importer_help_winauth">Supply a WinAuth export file.</string>
 
     <string name="importer_help_direct">Import entries directly from %s. This requires the app to be installed on this device and for root access to be granted to Aegis.</string>
+    <string name="groups">Groups</string>
 </resources>

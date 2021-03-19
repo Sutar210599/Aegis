@@ -11,10 +11,9 @@
     <string name="save">Salvar</string>
     <string name="issuer">Nome do serviço</string>
     <string name="settings">Preferências</string>
-    <string name="pref_appearance_group_title">Aparência</string>
-    <string name="pref_security_group_title">Segurança</string>
-    <string name="pref_tools_group_title">Ferramentas</string>
-    <string name="pref_backups_group_title">Backups</string>
+    <string name="pref_section_appearance_title">Aparência</string>
+    <string name="pref_section_security_title">Segurança</string>
+    <string name="pref_section_backups_title">Backups</string>
     <string name="pref_select_theme_title">Tema</string>
     <string name="pref_view_mode_title">Modo de exibição</string>
     <string name="pref_lang_title">Idioma</string>
@@ -98,7 +97,6 @@
     <string name="unlock">Desbloquear</string>
     <string name="biometrics">Biometria</string>
     <string name="advanced">Avançado</string>
-    <string name="seconds">segundos</string>
     <string name="counter">Contador</string>
     <string name="digits">Dígitos</string>
     <string name="secret">Secreto</string>
@@ -194,10 +192,7 @@
     <string name="adding_new_slot_error">Um erro ocorreu durante a tentativa de adicionar uma nova chave:</string>
     <string name="progressbar_error">Não foi possível resetar a escala de duração da animação. Barras de progresso ficarão invisíveis.</string>
     <string name="details">Detalhes</string>
-    <string name="filter">Filtrar</string>
-    <string name="filter_ungrouped">Não agrupar</string>
     <string name="lock">Bloquear</string>
-    <string name="all">Todos</string>
     <string name="name">Conta</string>
     <string name="no_group">Sem grupo</string>
     <string name="sort_alphabetically">Nome (A to Z)</string>
@@ -246,8 +241,8 @@
     <string name="changelog">Registro de Mudanças</string>
     <string name="whats_new">O que há de novo</string>
     <string name="github_description">Código fonte, problemas e informações</string>
-    <string name="licenses">Licenças</string>
-    <string name="licenses_description">Licenças das bibliotecas usadas pelo Aegis</string>
+    <string name="third_party_licenses">Licenças</string>
+    <string name="third_party_licenses_description">Licenças das bibliotecas usadas pelo Aegis</string>
     <string name="country_netherlands">Países Baixos</string>
     <string name="email_us">Escreva-nos um email</string>
     <string name="visit_website">Visite nosso site</string>
@@ -294,7 +289,7 @@
     <string name="title_activity_edit_entry">Editar entrada</string>
     <string name="title_activity_scan_qr">Escanear QR code</string>
     <string name="title_activity_manage_slots">Gerenciar slots de chaves</string>
-    <string name="title_activity_select_entries">Selecionar entradas</string>
+    <string name="title_activity_import_entries">Selecionar entradas</string>
     <string name="dialog_wipe_entries_title">Limpar entradas</string>
     <string name="dialog_wipe_entries_message">O seu cofre já contém entradas. Você quer remover essas entradas antes de importar este arquivo?\n\n<b>Ao fazer isso, você perderá permanentemente o acesso às entradas existentes no cofre.</b></string>
     <string name="dialog_wipe_entries_checkbox">Limpar conteúdo do cofre</string>

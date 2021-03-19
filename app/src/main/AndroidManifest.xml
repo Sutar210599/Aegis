@@ -22,8 +22,7 @@
         android:icon="@mipmap/${iconName}"
         android:label="Aegis"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme.NoActionBar"
-        tools:ignore="GoogleAppIndexingWarning"
+        android:theme="@style/Theme.Aegis.Launch"
         tools:replace="android:theme">
         <activity android:name=".ui.TransferEntriesActivity"
             android:label="@string/title_activity_transfer" />
@@ -31,8 +30,8 @@
             android:name=".ui.AboutActivity"
             android:label="@string/title_activity_about" />
         <activity
-            android:name=".ui.SelectEntriesActivity"
-            android:label="@string/title_activity_select_entries" />
+            android:name=".ui.ImportEntriesActivity"
+            android:label="@string/title_activity_import_entries" />
         <activity
             android:name=".ui.MainActivity"
             android:label="${title}">
@@ -49,6 +48,13 @@
 
                 <data android:scheme="otpauth" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="image/*" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".ui.ScannerActivity"
@@ -60,11 +66,9 @@
             android:label="@string/title_activity_edit_entry" />
         <activity
             android:name=".ui.IntroActivity"
-            android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.AuthActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:name=".ui.AuthActivity" />
         <activity
             android:name=".ui.PreferencesActivity"
             android:label="@string/title_activity_preferences" />

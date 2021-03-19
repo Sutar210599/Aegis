@@ -11,10 +11,9 @@
     <string name="save">ذخیره</string>
     <string name="issuer">صادر کننده</string>
     <string name="settings">تنظیمات</string>
-    <string name="pref_appearance_group_title">ظاهر</string>
-    <string name="pref_security_group_title">امنیت</string>
-    <string name="pref_tools_group_title">ابزارها</string>
-    <string name="pref_backups_group_title">پشتیبان گیری</string>
+    <string name="pref_section_appearance_title">ظاهر</string>
+    <string name="pref_section_security_title">امنیت</string>
+    <string name="pref_section_backups_title">پشتیبان گیری</string>
     <string name="pref_select_theme_title">پوسته</string>
     <string name="pref_view_mode_title">حالت نمایش</string>
     <string name="pref_lang_title">زبان</string>
@@ -96,7 +95,6 @@
     <string name="unlock">بازکردن</string>
     <string name="biometrics">بیومتریک</string>
     <string name="advanced">پیشرفته</string>
-    <string name="seconds">ثانیه</string>
     <string name="counter">شمارنده</string>
     <string name="digits">ارقام</string>
     <string name="secret">رمز</string>
@@ -190,10 +188,7 @@
     <string name="adding_new_slot_error">هنگام ایجاد اسلات خطایی رخ داد:</string>
     <string name="progressbar_error">عدم توانایی در تنظیم انیمیشن. نمایش درصد تکمیل مخفی می‌شود.</string>
     <string name="details">جزئیات</string>
-    <string name="filter">فیلتر</string>
-    <string name="filter_ungrouped">گروه‌بندی نشده</string>
     <string name="lock">قفل</string>
-    <string name="all">همه</string>
     <string name="name">نام</string>
     <string name="no_group">بدون گروه</string>
     <string name="sort_alphabetically">صادر کننده (A - Z)</string>
@@ -242,8 +237,8 @@
     <string name="changelog">گزارش تغییرات</string>
     <string name="whats_new">تغییرات جدید</string>
     <string name="github_description">دسترسی به کد برنامه</string>
-    <string name="licenses">لایسنس</string>
-    <string name="licenses_description">لایسنس های کتابخانه های مورد استفاده</string>
+    <string name="third_party_licenses">لایسنس</string>
+    <string name="third_party_licenses_description">لایسنس های کتابخانه های مورد استفاده</string>
     <string name="country_netherlands">هلند</string>
     <string name="email_us">ایمیل بنویسید</string>
     <string name="visit_website">از وب‌سایت ما دیدن کنید</string>
@@ -290,7 +285,7 @@
     <string name="title_activity_edit_entry">ویرایش آیتم</string>
     <string name="title_activity_scan_qr">اسکن بارکد دوبعدی</string>
     <string name="title_activity_manage_slots">مدیریت کلید‌ها</string>
-    <string name="title_activity_select_entries">انتخاب آیتم‌ها</string>
+    <string name="title_activity_import_entries">انتخاب آیتم‌ها</string>
     <string name="dialog_wipe_entries_title">پاک کردن موارد</string>
     <string name="dialog_wipe_entries_message">مخزن شما در حال حاضر شامل آیتم می‌باشد. آیا مطمئن به حذف این آیتم‌ها قبل از وارد کردن می‌باشید؟\n\n<b>بعد از این کار شما به هیچ وجه دسترسی به آیتم های قبلی نخواهید داشت.</b></string>
     <string name="dialog_wipe_entries_checkbox">پاک کردن اطلاعات مخزن</string>

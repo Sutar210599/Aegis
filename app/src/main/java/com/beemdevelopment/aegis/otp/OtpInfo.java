@@ -10,12 +10,15 @@ import java.io.Serializable;
 import java.util.Arrays;
 
 public abstract class OtpInfo implements Serializable {
+    public static final int DEFAULT_DIGITS = 6;
+    public static final String DEFAULT_ALGORITHM = "SHA1";
+
     private byte[] _secret;
     private String _algorithm;
     private int _digits;
 
     public OtpInfo(byte[] secret) throws OtpInfoException {
-        this(secret, "SHA1", 6);
+        this(secret, DEFAULT_ALGORITHM, DEFAULT_DIGITS);
     }
 
     public OtpInfo(byte[] secret, String algorithm, int digits) throws OtpInfoException {
@@ -26,7 +29,11 @@ public abstract class OtpInfo implements Serializable {
 
     public abstract String getOtp();
 
-    public abstract String getType();
+    public abstract String getTypeId();
+
+    public String getType() {
+        return getTypeId().toUpperCase();
+    }
 
     public JSONObject toJson() {
         JSONObject obj = new JSONObject();
@@ -127,7 +134,7 @@ public abstract class OtpInfo implements Serializable {
         }
 
         OtpInfo info = (OtpInfo) o;
-        return getType().equals(info.getType())
+        return getTypeId().equals(info.getTypeId())
                 && Arrays.equals(getSecret(), info.getSecret())
                 && getAlgorithm(false).equals(info.getAlgorithm(false))
                 && getDigits() == info.getDigits();

@@ -11,10 +11,9 @@
     <string name="save">Salva</string>
     <string name="issuer">Emittente</string>
     <string name="settings">Impostazioni</string>
-    <string name="pref_appearance_group_title">Aspetto</string>
-    <string name="pref_security_group_title">Sicurezza</string>
-    <string name="pref_tools_group_title">Strumenti</string>
-    <string name="pref_backups_group_title">Backup</string>
+    <string name="pref_section_appearance_title">Aspetto</string>
+    <string name="pref_section_security_title">Sicurezza</string>
+    <string name="pref_section_backups_title">Backup</string>
     <string name="pref_select_theme_title">Tema</string>
     <string name="pref_view_mode_title">Visualizzazione</string>
     <string name="pref_lang_title">Seleziona lingua</string>
@@ -98,7 +97,6 @@
     <string name="unlock">Sblocca</string>
     <string name="biometrics">Biometrica</string>
     <string name="advanced">Avanzate</string>
-    <string name="seconds">secondi</string>
     <string name="counter">Contatore</string>
     <string name="digits">Cifre</string>
     <string name="secret">Chiave segreta</string>
@@ -194,10 +192,7 @@
     <string name="adding_new_slot_error">Errore nell\'aggiunta di un nuovo slot:</string>
     <string name="progressbar_error">Impossibile ripristinare la durata delle animazioni. Le barre di caricamento non saranno visibili.</string>
     <string name="details">Dettagli</string>
-    <string name="filter">Filtra</string>
-    <string name="filter_ungrouped">Non raggruppati</string>
     <string name="lock">Blocca</string>
-    <string name="all">Tutti</string>
     <string name="name">Nome</string>
     <string name="no_group">Nessun gruppo</string>
     <string name="sort_alphabetically">Emittente (A-Z)</string>
@@ -246,8 +241,8 @@
     <string name="changelog">Changelog</string>
     <string name="whats_new">Novità</string>
     <string name="github_description">Codice, problemi e informazioni</string>
-    <string name="licenses">Licenze</string>
-    <string name="licenses_description">Licenze delle librerie usate da Aegis</string>
+    <string name="third_party_licenses">Licenze</string>
+    <string name="third_party_licenses_description">Licenze delle librerie usate da Aegis</string>
     <string name="country_netherlands">Paesi Bassi</string>
     <string name="email_us">Scrivici una email</string>
     <string name="visit_website">Visita il nostro sito web</string>
@@ -294,7 +289,7 @@
     <string name="title_activity_edit_entry">Modifica voce</string>
     <string name="title_activity_scan_qr">Scansiona un codice QR</string>
     <string name="title_activity_manage_slots">Gestisci slot di chiavi</string>
-    <string name="title_activity_select_entries">Seleziona voci</string>
+    <string name="title_activity_import_entries">Seleziona voci</string>
     <string name="dialog_wipe_entries_title">Cancella voci</string>
     <string name="dialog_wipe_entries_message">La tua cassaforte contiene già delle voci. Rimuovere queste voci prima di importare questo file?\n\n<b>In questo modo, perderai definitivamente l\'accesso alle voci esistenti nella cassaforte.</b></string>
     <string name="dialog_wipe_entries_checkbox">Cancella contenuto della cassaforte</string>

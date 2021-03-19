@@ -11,10 +11,9 @@
     <string name="save">Zapisz</string>
     <string name="issuer">Wydawca</string>
     <string name="settings">Ustawienia</string>
-    <string name="pref_appearance_group_title">Wygląd</string>
-    <string name="pref_security_group_title">Bezpieczeństwo</string>
-    <string name="pref_tools_group_title">Narzędzia</string>
-    <string name="pref_backups_group_title">Kopie zapasowe</string>
+    <string name="pref_section_appearance_title">Wygląd</string>
+    <string name="pref_section_security_title">Bezpieczeństwo</string>
+    <string name="pref_section_backups_title">Kopie zapasowe</string>
     <string name="pref_select_theme_title">Motyw</string>
     <string name="pref_view_mode_title">Tryb wyświetlania</string>
     <string name="pref_lang_title">Język</string>
@@ -100,7 +99,6 @@
     <string name="unlock">Odblokuj</string>
     <string name="biometrics">Autoryzacja biometryczna</string>
     <string name="advanced">Zaawansowane</string>
-    <string name="seconds">sekund</string>
     <string name="counter">Licznik</string>
     <string name="digits">Cyfry</string>
     <string name="secret">Klucz</string>
@@ -200,10 +198,7 @@
     <string name="adding_new_slot_error">Wystąpił błąd podczas próby dodania nowego slotu:</string>
     <string name="progressbar_error">Nie można zresetować skali długości animacji. Paski postępu będą niewidoczne.</string>
     <string name="details">Szczegóły</string>
-    <string name="filter">Filtruj</string>
-    <string name="filter_ungrouped">Bez grupy</string>
     <string name="lock">Zablokuj</string>
-    <string name="all">Wszystkie</string>
     <string name="name">Nazwa</string>
     <string name="no_group">Brak grupy</string>
     <string name="sort_alphabetically">Wydawca (od A do Z)</string>
@@ -254,8 +249,8 @@
     <string name="changelog">Lista zmian</string>
     <string name="whats_new">Co nowego</string>
     <string name="github_description">Kod źródłowy, problemy i informacje</string>
-    <string name="licenses">Licencje</string>
-    <string name="licenses_description">Licencje bibliotek, z których korzysta aplikacja Aegis</string>
+    <string name="third_party_licenses">Licencje</string>
+    <string name="third_party_licenses_description">Licencje bibliotek, z których korzysta aplikacja Aegis</string>
     <string name="country_netherlands">Holandia</string>
     <string name="email_us">Napisz wiadomość e-mail</string>
     <string name="visit_website">Odwiedź naszą stronę</string>
@@ -306,7 +301,7 @@
     <string name="title_activity_edit_entry">Edytuj wpis</string>
     <string name="title_activity_scan_qr">Skanuj kod QR</string>
     <string name="title_activity_manage_slots">Zarządzaj slotami klucza</string>
-    <string name="title_activity_select_entries">Zaznacz wpisy</string>
+    <string name="title_activity_import_entries">Zaznacz wpisy</string>
     <string name="dialog_wipe_entries_title">Wyczyść wpisy</string>
     <string name="dialog_wipe_entries_message">Twój sejf zawiera już wpisy. Czy chcesz usunąć te wpisy przed zaimportowaniem tego pliku?\n\n<b>W ten sposób trwale stracisz dostęp do obecnych wpisów w sejfie.</b></string>
     <string name="dialog_wipe_entries_checkbox">Wyczyść zawartość sejfu</string>

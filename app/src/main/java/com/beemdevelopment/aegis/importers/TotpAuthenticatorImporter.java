@@ -14,7 +14,7 @@ import com.beemdevelopment.aegis.encoding.EncodingException;
 import com.beemdevelopment.aegis.encoding.Hex;
 import com.beemdevelopment.aegis.otp.OtpInfoException;
 import com.beemdevelopment.aegis.otp.TotpInfo;
-import com.beemdevelopment.aegis.ui.Dialogs;
+import com.beemdevelopment.aegis.ui.dialogs.Dialogs;
 import com.beemdevelopment.aegis.util.IOUtils;
 import com.beemdevelopment.aegis.util.PreferenceParser;
 import com.beemdevelopment.aegis.vault.VaultEntry;
@@ -159,7 +159,7 @@ public class TotpAuthenticatorImporter extends DatabaseImporter {
                     .setPositiveButton(R.string.yes, (dialog, which) -> {
                         Dialogs.showPasswordInputDialog(context, password -> {
                             decrypt(password, listener);
-                        });
+                        }, dialog1 -> listener.onCanceled());
                     })
                     .setNegativeButton(R.string.no, (dialog, which) -> {
                         decrypt(PASSWORD, listener);
@@ -221,7 +221,7 @@ public class TotpAuthenticatorImporter extends DatabaseImporter {
                         throw new DatabaseImporterEntryException(String.format("Unsupported secret encoding: base %d", base), obj.toString());
                 }
 
-                TotpInfo info = new TotpInfo(secret, "SHA1", 6, 30);
+                TotpInfo info = new TotpInfo(secret);
                 String name = obj.optString("name");
                 String issuer = obj.optString("issuer");
 

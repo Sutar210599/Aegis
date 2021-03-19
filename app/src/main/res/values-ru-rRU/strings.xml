@@ -11,10 +11,9 @@
     <string name="save">Сохранить</string>
     <string name="issuer">Эмитент</string>
     <string name="settings">Предпочтения</string>
-    <string name="pref_appearance_group_title">Внешний вид</string>
-    <string name="pref_security_group_title">Безопасность</string>
-    <string name="pref_tools_group_title">Инструменты</string>
-    <string name="pref_backups_group_title">Резервные копии</string>
+    <string name="pref_section_appearance_title">Внешний вид</string>
+    <string name="pref_section_security_title">Безопасность</string>
+    <string name="pref_section_backups_title">Резервные копии</string>
     <string name="pref_select_theme_title">Тема</string>
     <string name="pref_view_mode_title">Режим отображения</string>
     <string name="pref_lang_title">Язык</string>
@@ -100,7 +99,6 @@
     <string name="unlock">Разблокировать</string>
     <string name="biometrics">Биометрия</string>
     <string name="advanced">Расширенные</string>
-    <string name="seconds">секунд</string>
     <string name="counter">Счётчик</string>
     <string name="digits">Цифры</string>
     <string name="secret">Секрет</string>
@@ -200,10 +198,7 @@
     <string name="adding_new_slot_error">Произошла ошибка при попытке добавить новый слот:</string>
     <string name="progressbar_error">Не удалось установить продолжительность анимации. Индикаторы прогресса не будут отображаться.</string>
     <string name="details">Подробнее</string>
-    <string name="filter">Фильтр</string>
-    <string name="filter_ungrouped">Без группировки</string>
     <string name="lock">Заблокировать</string>
-    <string name="all">Все</string>
     <string name="name">Имя</string>
     <string name="no_group">Нет группы</string>
     <string name="sort_alphabetically">Эмитент (А→Я)</string>
@@ -254,8 +249,8 @@
     <string name="changelog">Список изменений</string>
     <string name="whats_new">Что нового</string>
     <string name="github_description">Исходный код, замечания и информация</string>
-    <string name="licenses">Лицензии</string>
-    <string name="licenses_description">Лицензии библиотек, используемых в Aegis</string>
+    <string name="third_party_licenses">Лицензии</string>
+    <string name="third_party_licenses_description">Лицензии библиотек, используемых в Aegis</string>
     <string name="country_netherlands">Нидерланды</string>
     <string name="email_us">Написать эл. письмо</string>
     <string name="visit_website">Посетить наш веб-сайт</string>
@@ -306,7 +301,7 @@
     <string name="title_activity_edit_entry">Редактировать запись</string>
     <string name="title_activity_scan_qr">Сканировать QR-код</string>
     <string name="title_activity_manage_slots">Управление ключевыми слотами</string>
-    <string name="title_activity_select_entries">Выбрать записи</string>
+    <string name="title_activity_import_entries">Выбрать записи</string>
     <string name="dialog_wipe_entries_title">Очистить записи</string>
     <string name="dialog_wipe_entries_message">В вашем хранилище уже есть записи. Вы хотите удалить эти записи перед импортом файла?\n\n<b>При этом вы навсегда потеряете доступ к существующим записям в хранилище.</b></string>
     <string name="dialog_wipe_entries_checkbox">Очистить содержимое хранилища</string>

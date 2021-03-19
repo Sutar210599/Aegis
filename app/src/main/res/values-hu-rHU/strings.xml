@@ -9,10 +9,9 @@
     <string name="save">Mentés</string>
     <string name="issuer">Kibocsátó</string>
     <string name="settings">Beállítások</string>
-    <string name="pref_appearance_group_title">Megjelenés</string>
-    <string name="pref_security_group_title">Biztonság</string>
-    <string name="pref_tools_group_title">Eszközök</string>
-    <string name="pref_backups_group_title">Biztonsági mentések</string>
+    <string name="pref_section_appearance_title">Megjelenés</string>
+    <string name="pref_section_security_title">Biztonság</string>
+    <string name="pref_section_backups_title">Biztonsági mentések</string>
     <string name="pref_select_theme_title">Téma</string>
     <string name="pref_view_mode_title">Nézetmód</string>
     <string name="pref_lang_title">Nyelv</string>
@@ -76,7 +75,6 @@
     <string name="unlock">Feloldás</string>
     <string name="biometrics">Biometrikus adatok</string>
     <string name="advanced">Speciális</string>
-    <string name="seconds">másodperc</string>
     <string name="counter">Számláló</string>
     <string name="digits">Számjegy</string>
     <string name="secret">Titok</string>
@@ -154,10 +152,7 @@
     <string name="adding_new_slot_error">Hiba történt az új zár hozzáadásakor:</string>
     <string name="progressbar_error">Az animátor hossza nem állítható vissza. A folyamatsávok nem fognak látszódni.</string>
     <string name="details">Részletek</string>
-    <string name="filter">Szűrő</string>
-    <string name="filter_ungrouped">Csoport nélküli</string>
     <string name="lock">Zárolás</string>
-    <string name="all">Összes</string>
     <string name="name">Név</string>
     <string name="no_group">Nincs csoport</string>
     <string name="sort_alphabetically">Kibocsátó (A-tól Z-ig)</string>
@@ -194,8 +189,8 @@
     <string name="changelog">Változásnapló</string>
     <string name="whats_new">Újdonságok</string>
     <string name="github_description">Forráskód, problémák és információk</string>
-    <string name="licenses">Licencek</string>
-    <string name="licenses_description">Az Aegis által használt programkönyvtárok licencei</string>
+    <string name="third_party_licenses">Licencek</string>
+    <string name="third_party_licenses_description">Az Aegis által használt programkönyvtárok licencei</string>
     <string name="country_netherlands">Hollandia</string>
     <string name="email_us">Írjon egy e-mailt</string>
     <string name="visit_website">Keresse fel weboldalunkat</string>

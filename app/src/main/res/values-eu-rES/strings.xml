@@ -11,10 +11,9 @@
     <string name="save">Gorde</string>
     <string name="issuer">Igorlea</string>
     <string name="settings">Hobespenak</string>
-    <string name="pref_appearance_group_title">Itxura</string>
-    <string name="pref_security_group_title">Segurtasuna</string>
-    <string name="pref_tools_group_title">Tresnak</string>
-    <string name="pref_backups_group_title">Segurtasun-kopiak</string>
+    <string name="pref_section_appearance_title">Itxura</string>
+    <string name="pref_section_security_title">Segurtasuna</string>
+    <string name="pref_section_backups_title">Segurtasun-kopiak</string>
     <string name="pref_select_theme_title">Itxura</string>
     <string name="pref_view_mode_title">Ikuspegia</string>
     <string name="pref_lang_title">Hizkuntza</string>
@@ -96,7 +95,6 @@
     <string name="unlock">Desblokeatu</string>
     <string name="biometrics">Biometriak</string>
     <string name="advanced">Aurreratua</string>
-    <string name="seconds">segundu</string>
     <string name="counter">Kontagailua</string>
     <string name="digits">Digituak</string>
     <string name="secret">Sekretua</string>
@@ -190,10 +188,7 @@
     <string name="adding_new_slot_error">Errorea gertatu da arteka berria gehitzen saiatzean:</string>
     <string name="progressbar_error">Ezin da animazioaren iraupenaren eskala berrezarri. Aurrerapen-barrak ikusezinak izango dira.</string>
     <string name="details">Xehetasunak</string>
-    <string name="filter">Iragazkia</string>
-    <string name="filter_ungrouped">Taldekatu gabekoak</string>
     <string name="lock">Blokeatu</string>
-    <string name="all">Denak</string>
     <string name="name">Izena</string>
     <string name="no_group">Talderik ez</string>
     <string name="sort_alphabetically">Igorlea (A-tik Z-ra)</string>
@@ -240,8 +235,8 @@
     <string name="changelog">Aldaketen erregistroa</string>
     <string name="whats_new">Zer berri</string>
     <string name="github_description">Iturburu-kodea, arazoak eta informazioa</string>
-    <string name="licenses">Lizentziak</string>
-    <string name="licenses_description">Aegis-ek erabiltzen dituen liburutegien lizentziak</string>
+    <string name="third_party_licenses">Lizentziak</string>
+    <string name="third_party_licenses_description">Aegis-ek erabiltzen dituen liburutegien lizentziak</string>
     <string name="country_netherlands">Herbehereak</string>
     <string name="email_us">Idatzi eposta bat</string>
     <string name="visit_website">Ikusi gure webgunea</string>
@@ -288,7 +283,7 @@
     <string name="title_activity_edit_entry">Editatu sarrera</string>
     <string name="title_activity_scan_qr">Eskaneatu QR kodea</string>
     <string name="title_activity_manage_slots">Kudeatu arteka giltzarriak</string>
-    <string name="title_activity_select_entries">Aukeratu sarrerak</string>
+    <string name="title_activity_import_entries">Aukeratu sarrerak</string>
     <string name="dialog_wipe_entries_title">Garbitu sarrerak</string>
     <string name="dialog_wipe_entries_message">Zure biltegiak sarrerak ditu dagoeneko. Sarrera horiek ezabatu nahi dituzu fitxategi hau inportatu aurretik?\n\n<b>Hori egitean, biltegiko sarreretarako sarbidea galduko da betirako.</b></string>
     <string name="dialog_wipe_entries_checkbox">Garbitu biltegiaren sarrerak</string>

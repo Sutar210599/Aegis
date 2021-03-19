@@ -11,10 +11,9 @@
     <string name="save">حفظ</string>
     <string name="issuer">المصدِّر</string>
     <string name="settings">التفضيلات</string>
-    <string name="pref_appearance_group_title">المظهر</string>
-    <string name="pref_security_group_title">الأمان</string>
-    <string name="pref_tools_group_title">الأدوات</string>
-    <string name="pref_backups_group_title">النسخ الاحتياطي</string>
+    <string name="pref_section_appearance_title">المظهر</string>
+    <string name="pref_section_security_title">الأمان</string>
+    <string name="pref_section_backups_title">النسخ الاحتياطي</string>
     <string name="pref_select_theme_title">النمط</string>
     <string name="pref_view_mode_title">وضع العرض</string>
     <string name="pref_lang_title">اللغة</string>
@@ -93,7 +92,6 @@
     <string name="unlock">فتح القفل</string>
     <string name="biometrics">البيومترية</string>
     <string name="advanced">متقدم</string>
-    <string name="seconds">ثواني</string>
     <string name="counter">العداد</string>
     <string name="digits">الأرقام</string>
     <string name="secret">السر</string>
@@ -181,10 +179,7 @@
     <string name="adding_new_slot_error">حدث خطأ أثناء محاولة إضافة خانة جديدة:</string>
     <string name="progressbar_error">تعذّر اعادة تعيين مقياس مدة الرسوم المتحركة. أشرطة التقدم ستكون مخفية.</string>
     <string name="details">التفاصيل</string>
-    <string name="filter">تصفية</string>
-    <string name="filter_ungrouped">تمت إزالتها من المجموعة</string>
     <string name="lock">قفل</string>
-    <string name="all">الكل</string>
     <string name="name">الاسم</string>
     <string name="no_group">بلا مجموعة</string>
     <string name="sort_alphabetically">المصدِّر (أ إلى ي)</string>
@@ -229,8 +224,8 @@
     <string name="changelog">سجل التغيير</string>
     <string name="whats_new">ما الجديد</string>
     <string name="github_description">الكود المصدري، والمشاكل، والمعلومات</string>
-    <string name="licenses">الرخصات</string>
-    <string name="licenses_description">الرخصات المكتبات التي يستعملها Aegis</string>
+    <string name="third_party_licenses">الرخصات</string>
+    <string name="third_party_licenses_description">الرخصات المكتبات التي يستعملها Aegis</string>
     <string name="country_netherlands">هولندا</string>
     <string name="email_us">اكتب بريد الكتروني</string>
     <string name="visit_website">قم بزيارة موقعنا</string>

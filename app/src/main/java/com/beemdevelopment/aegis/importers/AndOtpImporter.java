@@ -17,7 +17,7 @@ import com.beemdevelopment.aegis.otp.OtpInfo;
 import com.beemdevelopment.aegis.otp.OtpInfoException;
 import com.beemdevelopment.aegis.otp.SteamInfo;
 import com.beemdevelopment.aegis.otp.TotpInfo;
-import com.beemdevelopment.aegis.ui.Dialogs;
+import com.beemdevelopment.aegis.ui.dialogs.Dialogs;
 import com.beemdevelopment.aegis.ui.tasks.ProgressDialogTask;
 import com.beemdevelopment.aegis.util.IOUtils;
 import com.beemdevelopment.aegis.vault.VaultEntry;
@@ -190,7 +190,7 @@ public class AndOtpImporter extends DatabaseImporter {
                             } catch (DatabaseImporterException e) {
                                 listener.onError(e);
                             }
-                        });
+                        }, dialog1 -> listener.onCanceled());
                     })
                     .create());
         }
@@ -239,7 +239,7 @@ public class AndOtpImporter extends DatabaseImporter {
                         info = new TotpInfo(secret, algo, digits, obj.getInt("period"));
                         break;
                     case "steam":
-                        info = new SteamInfo(secret, algo, digits, obj.optInt("period", 30));
+                        info = new SteamInfo(secret, algo, digits, obj.optInt("period", TotpInfo.DEFAULT_PERIOD));
                         break;
                     default:
                         throw new DatabaseImporterException("unsupported otp type: " + type);

@@ -16,6 +16,7 @@ import com.beemdevelopment.aegis.Preferences;
 import com.beemdevelopment.aegis.R;
 import com.beemdevelopment.aegis.Theme;
 import com.beemdevelopment.aegis.ThemeMap;
+import com.beemdevelopment.aegis.ui.dialogs.Dialogs;
 import com.beemdevelopment.aegis.vault.VaultManagerException;
 
 import java.util.Locale;
@@ -53,6 +54,7 @@ public abstract class AegisActivity extends AppCompatActivity implements AegisAp
     }
 
     @Override
+    @CallSuper
     protected void onDestroy() {
         _app.unregisterLockListener(this);
         super.onDestroy();
@@ -119,13 +121,10 @@ public abstract class AegisActivity extends AppCompatActivity implements AegisAp
 
         if (theme == Theme.SYSTEM || theme == Theme.SYSTEM_AMOLED) {
             int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-            switch (currentNightMode) {
-                case Configuration.UI_MODE_NIGHT_NO:
-                    theme = Theme.LIGHT;
-                    break;
-                case Configuration.UI_MODE_NIGHT_YES:
-                    theme = theme == Theme.SYSTEM_AMOLED ? Theme.AMOLED : Theme.DARK;
-                    break;
+            if (currentNightMode == Configuration.UI_MODE_NIGHT_YES) {
+                theme = theme == Theme.SYSTEM_AMOLED ? Theme.AMOLED : Theme.DARK;
+            } else {
+                theme = Theme.LIGHT;
             }
         }
 

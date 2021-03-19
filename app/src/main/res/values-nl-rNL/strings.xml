@@ -11,10 +11,9 @@
     <string name="save">Opslaan</string>
     <string name="issuer">Uitgever</string>
     <string name="settings">Voorkeuren</string>
-    <string name="pref_appearance_group_title">Uiterlijk</string>
-    <string name="pref_security_group_title">Beveiliging</string>
-    <string name="pref_tools_group_title">Hulpmiddelen</string>
-    <string name="pref_backups_group_title">Back-ups</string>
+    <string name="pref_section_appearance_title">Uiterlijk</string>
+    <string name="pref_section_security_title">Beveiliging</string>
+    <string name="pref_section_backups_title">Back-ups</string>
     <string name="pref_select_theme_title">Thema</string>
     <string name="pref_view_mode_title">Weergavemodus</string>
     <string name="pref_lang_title">Taal</string>
@@ -98,7 +97,6 @@
     <string name="unlock">Ontgrendel</string>
     <string name="biometrics">Biometrie</string>
     <string name="advanced">Geavanceerd</string>
-    <string name="seconds">seconden</string>
     <string name="counter">Teller</string>
     <string name="digits">Cijfers</string>
     <string name="secret">Sleutel</string>
@@ -194,10 +192,7 @@
     <string name="adding_new_slot_error">Er is een fout opgetreden tijdens het toevoegen van een nieuwe vergrendelingssleutel:</string>
     <string name="progressbar_error">Niet in staat om de schaal van animatieduur te resetten. Voortgangsbalken zullen niet zichtbaar zijn.</string>
     <string name="details">Details</string>
-    <string name="filter">Filter</string>
-    <string name="filter_ungrouped">Geen groep</string>
     <string name="lock">Vergrendel</string>
-    <string name="all">Alles</string>
     <string name="name">Naam</string>
     <string name="no_group">Geen groep</string>
     <string name="sort_alphabetically">Uitgever (A t/m Z)</string>
@@ -246,8 +241,8 @@
     <string name="changelog">Wijzigingen</string>
     <string name="whats_new">Vernieuwingen</string>
     <string name="github_description">Broncode, problemen en informatie</string>
-    <string name="licenses">Licenties</string>
-    <string name="licenses_description">Licenties van gebruikte libraries</string>
+    <string name="third_party_licenses">Licenties</string>
+    <string name="third_party_licenses_description">Licenties van gebruikte libraries</string>
     <string name="country_netherlands">Nederland</string>
     <string name="email_us">Schrijf een email</string>
     <string name="visit_website">Bekijk de website</string>
@@ -294,7 +289,7 @@
     <string name="title_activity_edit_entry">Item bewerken</string>
     <string name="title_activity_scan_qr">Scan een QR-code</string>
     <string name="title_activity_manage_slots">Beheer sleutelslots</string>
-    <string name="title_activity_select_entries">Geselecteerde items</string>
+    <string name="title_activity_import_entries">Geselecteerde items</string>
     <string name="dialog_wipe_entries_title">Items verwijderen</string>
     <string name="dialog_wipe_entries_message">Je kluis bevat al items. Wilt u deze invoergegevens verwijderen voordat u dit bestand importeert?\n\n<b>Hierdoor verliest u permanent toegang tot de bestaande items in de kluis.</b></string>
     <string name="dialog_wipe_entries_checkbox">Kluis inhoud wissen</string>

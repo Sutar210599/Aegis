@@ -11,10 +11,9 @@
     <string name="save">儲存</string>
     <string name="issuer">服務商</string>
     <string name="settings">偏好設定</string>
-    <string name="pref_appearance_group_title">外觀</string>
-    <string name="pref_security_group_title">安全</string>
-    <string name="pref_tools_group_title">工具</string>
-    <string name="pref_backups_group_title">備份</string>
+    <string name="pref_section_appearance_title">外觀</string>
+    <string name="pref_section_security_title">安全</string>
+    <string name="pref_section_backups_title">備份</string>
     <string name="pref_select_theme_title">主題</string>
     <string name="pref_view_mode_title">檢視模式</string>
     <string name="pref_lang_title">語言</string>
@@ -90,7 +89,6 @@
     <string name="unlock">解鎖</string>
     <string name="biometrics">生物識別</string>
     <string name="advanced">高級設定</string>
-    <string name="seconds">秒</string>
     <string name="counter">計數器</string>
     <string name="digits">位數</string>
     <string name="secret">密鑰</string>
@@ -182,10 +180,7 @@
     <string name="adding_new_slot_error">試圖添加新槽時出錯：</string>
     <string name="progressbar_error">無法重置動畫持續時間。進度條將不可見。</string>
     <string name="details">詳細信息</string>
-    <string name="filter">篩選</string>
-    <string name="filter_ungrouped">未分組</string>
     <string name="lock">鎖定</string>
-    <string name="all">所有</string>
     <string name="name">名稱</string>
     <string name="no_group">無群組</string>
     <string name="sort_alphabetically">服務商（A 到 Z）</string>
@@ -232,8 +227,8 @@
     <string name="changelog">更新日誌</string>
     <string name="whats_new">有什麼新鮮事</string>
     <string name="github_description">源代碼、議題和訊息</string>
-    <string name="licenses">許可證</string>
-    <string name="licenses_description">Aegis 使用的許可證和庫</string>
+    <string name="third_party_licenses">許可證</string>
+    <string name="third_party_licenses_description">Aegis 使用的許可證和庫</string>
     <string name="country_netherlands">荷蘭</string>
     <string name="email_us">發送電子郵件</string>
     <string name="visit_website">訪問我們的網站</string>
@@ -278,7 +273,7 @@
     <string name="title_activity_edit_entry">編輯條目</string>
     <string name="title_activity_scan_qr">掃描QR碼</string>
     <string name="title_activity_manage_slots">管理密鎖槽位</string>
-    <string name="title_activity_select_entries">選擇條目</string>
+    <string name="title_activity_import_entries">選擇條目</string>
     <string name="dialog_wipe_entries_title">清除條目</string>
     <string name="dialog_wipe_entries_message">您的數據庫已包含某些條目，您是否想在匯入這個檔案前，先移除這些重複的條目？\n\n<b>如果繼續，您將會失去之前擁有的重複條目。</b></string>
     <string name="dialog_wipe_entries_checkbox">清除條目的內容</string>

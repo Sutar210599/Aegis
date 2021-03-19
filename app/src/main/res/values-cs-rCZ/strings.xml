@@ -11,10 +11,9 @@
     <string name="save">Uložit</string>
     <string name="issuer">Poskytovatel</string>
     <string name="settings">Předvolby</string>
-    <string name="pref_appearance_group_title">Vzhled</string>
-    <string name="pref_security_group_title">Zabezpečení</string>
-    <string name="pref_tools_group_title">Nástroje</string>
-    <string name="pref_backups_group_title">Zálohy</string>
+    <string name="pref_section_appearance_title">Vzhled</string>
+    <string name="pref_section_security_title">Zabezpečení</string>
+    <string name="pref_section_backups_title">Zálohy</string>
     <string name="pref_select_theme_title">Vzhled</string>
     <string name="pref_view_mode_title">Režim zobrazení</string>
     <string name="pref_lang_title">Jazyk</string>
@@ -100,7 +99,6 @@
     <string name="unlock">Odemknout</string>
     <string name="biometrics">Biometrie</string>
     <string name="advanced">Pokročilé</string>
-    <string name="seconds">sekund</string>
     <string name="counter">Počítadlo</string>
     <string name="digits">Číslice</string>
     <string name="secret">Tajný klíč</string>
@@ -198,10 +196,7 @@
     <string name="adding_new_slot_error">Při pokusu o přidání nového slotu došlo k chybě:</string>
     <string name="progressbar_error">Měřítko trvání animace nelze resetovat. Ukazatele průběhu nebudou viditelné.</string>
     <string name="details">Podrobnosti</string>
-    <string name="filter">Filtr</string>
-    <string name="filter_ungrouped">Bez skupiny</string>
     <string name="lock">Uzamknout</string>
-    <string name="all">Vše</string>
     <string name="name">Název</string>
     <string name="no_group">Žádná skupina</string>
     <string name="sort_alphabetically">Poskytovatel (A → Z)</string>
@@ -246,8 +241,8 @@
     <string name="changelog">Seznam změn</string>
     <string name="whats_new">Co je nového?</string>
     <string name="github_description">Zdrojový kód, problémy a informace</string>
-    <string name="licenses">Licence</string>
-    <string name="licenses_description">Licence knihoven použitých v Aegis</string>
+    <string name="third_party_licenses">Licence</string>
+    <string name="third_party_licenses_description">Licence knihoven použitých v Aegis</string>
     <string name="country_netherlands">Nizozemsko</string>
     <string name="email_us">Pošlete nám e-mail</string>
     <string name="visit_website">Navštivte náš web</string>
@@ -298,7 +293,7 @@
     <string name="title_activity_edit_entry">Upravit položku</string>
     <string name="title_activity_scan_qr">Naskenovat QR kód</string>
     <string name="title_activity_manage_slots">Spravovat sloty klíčů</string>
-    <string name="title_activity_select_entries">Vybrat položky</string>
+    <string name="title_activity_import_entries">Vybrat položky</string>
     <string name="dialog_wipe_entries_title">Vyčistit položky</string>
     <string name="dialog_wipe_entries_message">Váš trezor už obsahuje záznamy. Chcete tyto záznamy smazat před importem tohoto souboru?\n\n<b>Přístup ke všem stávajícím položkám v trezoru trvale ztratíte.</b></string>
     <string name="dialog_wipe_entries_checkbox">Vymazat obsah trezoru</string>

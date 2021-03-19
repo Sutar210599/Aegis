@@ -49,6 +49,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/btn_app_version"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
@@ -63,12 +64,11 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:importantForAccessibility="no"
-                    app:ico_color="@color/icon_about"
+                    app:ico_color="?attr/iconColorPrimary"
                     app:ico_icon="gmi-info-outline"
                     app:ico_size="16dp" />
 
                 <LinearLayout
-                    android:id="@+id/btn_app_version"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
@@ -109,7 +109,7 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:importantForAccessibility="no"
-                    app:ico_color="@color/icon_about"
+                    app:ico_color="?attr/iconColorPrimary"
                     app:ico_icon="gmi-time-restore"
                     app:ico_size="16dp" />
 
@@ -151,7 +151,7 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:importantForAccessibility="no"
-                    app:ico_color="@color/icon_about"
+                    app:ico_color="?attr/iconColorPrimary"
                     app:ico_icon="gmi-github"
                     app:ico_size="16dp" />
 
@@ -178,7 +178,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/btn_licenses"
+                android:id="@+id/btn_license"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
@@ -193,7 +193,7 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:importantForAccessibility="no"
-                    app:ico_color="@color/icon_about"
+                    app:ico_color="?attr/iconColorPrimary"
                     app:ico_icon="gmi-file-text"
                     app:ico_size="16dp" />
 
@@ -208,13 +208,56 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/licenses"
+                        android:text="@string/license"
                         android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/licenses_description"
+                        android:text="@string/license_description"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btn_third_party_licenses"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:focusable="true">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:importantForAccessibility="no"
+                    app:ico_color="?attr/iconColorPrimary"
+                    app:ico_icon="gmi-file-text"
+                    app:ico_size="16dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:orientation="vertical"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/third_party_licenses"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/third_party_licenses_description"
                         android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
                 </LinearLayout>
 
@@ -268,7 +311,7 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:importantForAccessibility="no"
-                    app:ico_color="@color/icon_about"
+                    app:ico_color="?attr/iconColorPrimary"
                     app:ico_icon="gmi-account"
                     app:ico_size="16dp" />
 
@@ -313,7 +356,7 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:importantForAccessibility="no"
-                    app:ico_color="@color/icon_about"
+                    app:ico_color="?attr/iconColorPrimary"
                     app:ico_icon="gmi-account"
                     app:ico_size="16dp" />
 
@@ -358,7 +401,7 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:importantForAccessibility="no"
-                    app:ico_color="@color/icon_about"
+                    app:ico_color="?attr/iconColorPrimary"
                     app:ico_icon="gmi-email"
                     app:ico_size="16dp" />
 
@@ -390,7 +433,7 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:importantForAccessibility="no"
-                    app:ico_color="@color/icon_about"
+                    app:ico_color="?attr/iconColorPrimary"
                     app:ico_icon="gmi-globe"
                     app:ico_size="16dp" />
                 <TextView
@@ -451,7 +494,7 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:importantForAccessibility="no"
-                    app:ico_color="@color/icon_about"
+                    app:ico_color="?attr/iconColorPrimary"
                     app:ico_icon="gmi-star"
                     app:ico_size="16dp" />
 

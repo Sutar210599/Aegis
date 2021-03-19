@@ -9,10 +9,9 @@
     <string name="save">Kaydet</string>
     <string name="issuer">Sağlayıcı</string>
     <string name="settings">Ayarlar</string>
-    <string name="pref_appearance_group_title">Görünüm</string>
-    <string name="pref_security_group_title">Güvenlik</string>
-    <string name="pref_tools_group_title">Araçlar</string>
-    <string name="pref_backups_group_title">Yedekler</string>
+    <string name="pref_section_appearance_title">Görünüm</string>
+    <string name="pref_section_security_title">Güvenlik</string>
+    <string name="pref_section_backups_title">Yedekler</string>
     <string name="pref_select_theme_title">Tema</string>
     <string name="pref_view_mode_title">Görüntüleme biçimi</string>
     <string name="pref_lang_title">Dil</string>
@@ -76,7 +75,6 @@
     <string name="unlock">Kilidi aç</string>
     <string name="biometrics">Biyometrik</string>
     <string name="advanced">Gelişmiş</string>
-    <string name="seconds">saniye</string>
     <string name="counter">Sayaç</string>
     <string name="digits">Haneler</string>
     <string name="secret">Gizli Anahtar</string>
@@ -161,10 +159,7 @@
     <string name="adding_new_slot_error">Yeni bir anahtarlık oluşturmaya çalışırken hata oluştu:</string>
     <string name="progressbar_error">Animatör süresi ölçeği sıfırlanamıyor. İlerleme çubukları görünmez olacak.</string>
     <string name="details">Detaylar</string>
-    <string name="filter">Filtrele</string>
-    <string name="filter_ungrouped">Gruplandırılmamış</string>
     <string name="lock">Kilitle</string>
-    <string name="all">Hepsi</string>
     <string name="name">Ad</string>
     <string name="no_group">Grupsuz</string>
     <string name="sort_alphabetically">Sağlayıcı (A\'dan Z\'ye)</string>
@@ -200,8 +195,8 @@
     <string name="changelog">Değişiklik Günlüğü</string>
     <string name="whats_new">Yeni ne var?</string>
     <string name="github_description">Kaynak kod, sorunlar ve bilgiler</string>
-    <string name="licenses">Lisanslar</string>
-    <string name="licenses_description">Aegis\'in kullandığı kütüphanelerin lisansları</string>
+    <string name="third_party_licenses">Lisanslar</string>
+    <string name="third_party_licenses_description">Aegis\'in kullandığı kütüphanelerin lisansları</string>
     <string name="country_netherlands">Hollanda</string>
     <string name="email_us">Bir e-posta yazın</string>
     <string name="visit_website">Sitemizi ziyaret edin</string>
