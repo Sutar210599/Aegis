@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -31,6 +32,7 @@ import com.beemdevelopment.aegis.helpers.SimpleItemTouchHelperCallback;
 import com.beemdevelopment.aegis.helpers.UiRefresher;
 import com.beemdevelopment.aegis.otp.TotpInfo;
 import com.beemdevelopment.aegis.ui.dialogs.Dialogs;
+import com.beemdevelopment.aegis.ui.glide.IconLoader;
 import com.beemdevelopment.aegis.vault.VaultEntry;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.ListPreloader;
@@ -65,6 +67,7 @@ public class EntryListView extends Fragment implements EntryAdapter.Listener {
     private LinearLayout _emptyStateView;
     private Chip _groupChip;
     private List<String> _groupFilter;
+    private List<String> _prefGroupFilter;
 
     private UiRefresher _refresher;
 
@@ -128,7 +131,6 @@ public class EntryListView extends Fragment implements EntryAdapter.Listener {
         });
 
         _emptyStateView = view.findViewById(R.id.vEmptyList);
-
         return view;
     }
 
@@ -142,12 +144,14 @@ public class EntryListView extends Fragment implements EntryAdapter.Listener {
         super.onDestroyView();
     }
 
-    public void setGroupFilter(List<String> groups, boolean apply) {
+    public void setGroupFilter(List<String> groups, boolean animate) {
         _groupFilter = groups;
-        _adapter.setGroupFilter(groups, apply);
+        _adapter.setGroupFilter(groups);
         _touchCallback.setIsLongPressDragEnabled(_adapter.isDragAndDropAllowed());
+        updateEmptyState();
+        updateGroupChip();
 
-        if (apply) {
+        if (animate) {
             runEntriesAnimation();
         }
     }
@@ -265,6 +269,10 @@ public class EntryListView extends Fragment implements EntryAdapter.Listener {
     @Override
     public void onListChange() { _listener.onListChange(); }
 
+    public void setPrefGroupFilter(List<String> groupFilter) {
+        _prefGroupFilter = groupFilter;
+    }
+
     public void setCodeGroupSize(int codeGrouping) {
         _adapter.setCodeGroupSize(codeGrouping);
     }
@@ -371,9 +379,19 @@ public class EntryListView extends Fragment implements EntryAdapter.Listener {
 
         ChipGroup chipGroup = view.findViewById(R.id.groupChipGroup);
         Button clearButton = view.findViewById(R.id.btnClear);
+        Button saveButton = view.findViewById(R.id.btnSave);
         clearButton.setOnClickListener(v -> {
             chipGroup.clearCheck();
-            setGroupFilter(null, true);
+            List<String> groupFilter = Collections.emptyList();
+            _listener.onSaveGroupFilter(groupFilter);
+            setGroupFilter(groupFilter, true);
+            dialog.dismiss();
+        });
+
+        saveButton.setOnClickListener(v -> {
+            List<String> groupFilter = getGroupFilter(chipGroup);
+            _listener.onSaveGroupFilter(groupFilter);
+            setGroupFilter(groupFilter, true);
             dialog.dismiss();
         });
 
@@ -390,16 +408,8 @@ public class EntryListView extends Fragment implements EntryAdapter.Listener {
                 chip.setChipBackgroundColorResource(R.color.bg_chip_color);
                 chip.setTextColor(colorStateList);
                 chip.setOnCheckedChangeListener((group1, checkedId) -> {
-                    List<String> groupFilter = chipGroup.getCheckedChipIds().stream()
-                            .map(i -> ((Chip) view.findViewById(i)).getText().toString())
-                            .collect(Collectors.toList());
+                    List<String> groupFilter = getGroupFilter(chipGroup);
                     setGroupFilter(groupFilter, true);
-
-                    if (groupFilter.isEmpty()) {
-                        _groupChip.setText(R.string.groups);
-                    } else {
-                        _groupChip.setText(String.format("%s (%d)", getString(R.string.groups), groupFilter.size()));
-                    }
                 });
 
                 chipGroup.addView(chip);
@@ -407,6 +417,20 @@ public class EntryListView extends Fragment implements EntryAdapter.Listener {
 
             Dialogs.showSecureDialog(dialog);
         });
+    }
+
+    private static List<String> getGroupFilter(ChipGroup chipGroup) {
+        return chipGroup.getCheckedChipIds().stream()
+                .map(i -> ((Chip) chipGroup.findViewById(i)).getText().toString())
+                .collect(Collectors.toList());
+    }
+
+    private void updateGroupChip() {
+        if (_groupFilter.isEmpty()) {
+            _groupChip.setText(R.string.groups);
+        } else {
+            _groupChip.setText(String.format("%s (%d)", getString(R.string.groups), _groupFilter.size()));
+        }
     }
 
     private void setShowProgress(boolean showProgress) {
@@ -417,6 +441,26 @@ public class EntryListView extends Fragment implements EntryAdapter.Listener {
     public void setGroups(TreeSet<String> groups) {
         _groups = groups;
         _groupChip.setVisibility(_groups.isEmpty() ? View.GONE : View.VISIBLE);
+        updateDividerDecoration();
+
+        if (_prefGroupFilter != null) {
+            List<String> groupFilter = cleanGroupFilter(_prefGroupFilter);
+            _prefGroupFilter = null;
+            if (!groupFilter.isEmpty()) {
+                setGroupFilter(groupFilter, false);
+            }
+        } else if (_groupFilter != null) {
+            List<String> groupFilter = cleanGroupFilter(_groupFilter);
+            if (!_groupFilter.equals(groupFilter)) {
+                setGroupFilter(groupFilter, true);
+            }
+        }
+    }
+
+    private List<String> cleanGroupFilter(List<String> groupFilter) {
+       return groupFilter.stream()
+                .filter(g -> _groups.contains(g))
+                .collect(Collectors.toList());
     }
 
     private void updateDividerDecoration() {
@@ -457,6 +501,7 @@ public class EntryListView extends Fragment implements EntryAdapter.Listener {
         void onSelect(VaultEntry entry);
         void onDeselect(VaultEntry entry);
         void onListChange();
+        void onSaveGroupFilter(List<String> groupFilter);
     }
 
     private class VerticalSpaceItemDecoration extends RecyclerView.ItemDecoration {
@@ -469,6 +514,10 @@ public class EntryListView extends Fragment implements EntryAdapter.Listener {
 
         @Override
         public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+            if (parent.getChildAdapterPosition(view) == 0 && (_groups == null || _groups.isEmpty())) {
+                // the first item should also have a top margin
+                outRect.top = _height;
+            }
             outRect.bottom = _height;
         }
     }
@@ -486,10 +535,11 @@ public class EntryListView extends Fragment implements EntryAdapter.Listener {
 
         @Nullable
         @Override
-        public RequestBuilder getPreloadRequestBuilder(@NonNull VaultEntry entry) {
+        public RequestBuilder<Drawable> getPreloadRequestBuilder(@NonNull VaultEntry entry) {
             return Glide.with(EntryListView.this)
                         .asDrawable()
                         .load(entry)
+                        .set(IconLoader.ICON_TYPE, entry.getIconType())
                         .diskCacheStrategy(DiskCacheStrategy.NONE)
                         .skipMemoryCache(false);
         }

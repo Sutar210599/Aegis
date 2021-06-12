@@ -6,9 +6,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.beemdevelopment.aegis.R;
 import com.beemdevelopment.aegis.SortCategory;
 import com.beemdevelopment.aegis.ViewMode;
 import com.beemdevelopment.aegis.helpers.ItemTouchHelperAdapter;
@@ -25,7 +25,6 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeSet;
 import java.util.UUID;
 
 public class EntryAdapter extends RecyclerView.Adapter<EntryHolder> implements ItemTouchHelperAdapter {
@@ -232,20 +231,14 @@ public class EntryAdapter extends RecyclerView.Adapter<EntryHolder> implements I
         }
     }
 
-    public void setGroupFilter(List<String> groups, boolean apply) {
-        if (groups == null) {
-            groups = new ArrayList<>();
-        }
-
+    public void setGroupFilter(@NonNull List<String> groups) {
         if (_groupFilter.equals(groups)) {
             return;
         }
 
         _groupFilter = groups;
-        if (apply) {
-            updateShownEntries();
-            checkPeriodUniformity();
-        }
+        updateShownEntries();
+        checkPeriodUniformity();
     }
 
     public void setSortCategory(SortCategory category, boolean apply) {
@@ -260,7 +253,7 @@ public class EntryAdapter extends RecyclerView.Adapter<EntryHolder> implements I
     }
 
     public void setSearchFilter(String search) {
-        _searchFilter = search != null ? search.toLowerCase() : null;
+        _searchFilter = (search != null && !search.isEmpty()) ? search.toLowerCase() : null;
         updateShownEntries();
     }
 
@@ -287,10 +280,6 @@ public class EntryAdapter extends RecyclerView.Adapter<EntryHolder> implements I
 
     public void setViewMode(ViewMode viewMode) {
         _viewMode = viewMode;
-    }
-
-    public void setGroups(TreeSet<String> groups) {
-        _view.setGroups(groups);
     }
 
     @Override

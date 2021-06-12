@@ -22,6 +22,7 @@ import com.beemdevelopment.aegis.BuildConfig;
 import com.beemdevelopment.aegis.R;
 import com.beemdevelopment.aegis.helpers.DropdownHelper;
 import com.beemdevelopment.aegis.importers.DatabaseImporter;
+import com.beemdevelopment.aegis.ui.AegisActivity;
 import com.beemdevelopment.aegis.ui.ImportEntriesActivity;
 import com.beemdevelopment.aegis.ui.dialogs.Dialogs;
 import com.beemdevelopment.aegis.ui.tasks.ExportTask;
@@ -60,7 +61,7 @@ public class ImportExportPreferencesFragment extends PreferencesFragment {
 
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                 intent.setType("*/*");
-                startActivityForResult(intent, CODE_IMPORT_SELECT);
+                AegisActivity.Helper.startExtActivityForResult(this, intent, CODE_IMPORT_SELECT);
             });
             return true;
         });
@@ -112,6 +113,7 @@ public class ImportExportPreferencesFragment extends PreferencesFragment {
             return;
         }
 
+        ImportFileTask.Params params = new ImportFileTask.Params(uri, "import", null);
         ImportFileTask task = new ImportFileTask(getContext(), result -> {
             if (result.getException() == null) {
                 startImportEntriesActivity(_importerType, result.getFile());
@@ -119,7 +121,7 @@ public class ImportExportPreferencesFragment extends PreferencesFragment {
                 Dialogs.showErrorDialog(getContext(), R.string.reading_file_error, result.getException());
             }
         });
-        task.execute(getLifecycle(), uri);
+        task.execute(getLifecycle(), params);
     }
 
     private void startImportEntriesActivity(Class<? extends DatabaseImporter> importerType, File file) {
@@ -182,7 +184,7 @@ public class ImportExportPreferencesFragment extends PreferencesFragment {
                         .addCategory(Intent.CATEGORY_OPENABLE)
                         .setType(getExportMimeType(requestCode))
                         .putExtra(Intent.EXTRA_TITLE, fileInfo.toString());
-                startActivityForResult(intent, requestCode);
+                AegisActivity.Helper.startExtActivityForResult(this, intent, requestCode);
             });
 
             btnNeutral.setOnClickListener(v -> {
@@ -219,7 +221,7 @@ public class ImportExportPreferencesFragment extends PreferencesFragment {
                             .setType(getExportMimeType(requestCode))
                             .putExtra(Intent.EXTRA_STREAM, uri);
                     Intent chooser = Intent.createChooser(intent, getString(R.string.pref_export_summary));
-                    startActivity(chooser);
+                    AegisActivity.Helper.startExtActivity(this, chooser);
                 });
             });
         });

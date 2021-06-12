@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
@@ -26,6 +27,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
+import androidx.documentfile.provider.DocumentFile;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.avito.android.krop.KropView;
@@ -34,7 +36,10 @@ import com.beemdevelopment.aegis.encoding.Base32;
 import com.beemdevelopment.aegis.encoding.EncodingException;
 import com.beemdevelopment.aegis.helpers.DropdownHelper;
 import com.beemdevelopment.aegis.helpers.EditTextHelper;
+import com.beemdevelopment.aegis.helpers.IconViewHelper;
 import com.beemdevelopment.aegis.helpers.TextDrawableHelper;
+import com.beemdevelopment.aegis.icons.IconPack;
+import com.beemdevelopment.aegis.icons.IconType;
 import com.beemdevelopment.aegis.otp.GoogleAuthInfo;
 import com.beemdevelopment.aegis.otp.HotpInfo;
 import com.beemdevelopment.aegis.otp.OtpInfo;
@@ -42,23 +47,34 @@ import com.beemdevelopment.aegis.otp.OtpInfoException;
 import com.beemdevelopment.aegis.otp.SteamInfo;
 import com.beemdevelopment.aegis.otp.TotpInfo;
 import com.beemdevelopment.aegis.ui.dialogs.Dialogs;
+import com.beemdevelopment.aegis.ui.dialogs.IconPickerDialog;
+import com.beemdevelopment.aegis.ui.glide.IconLoader;
+import com.beemdevelopment.aegis.ui.tasks.ImportFileTask;
+import com.beemdevelopment.aegis.ui.views.IconAdapter;
 import com.beemdevelopment.aegis.util.Cloner;
+import com.beemdevelopment.aegis.util.IOUtils;
 import com.beemdevelopment.aegis.vault.VaultEntry;
 import com.beemdevelopment.aegis.vault.VaultManager;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.TreeSet;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Collectors;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -72,6 +88,7 @@ public class EditEntryActivity extends AegisActivity {
     private boolean _hasCustomIcon = false;
     // keep track of icon changes separately as the generated jpeg's are not deterministic
     private boolean _hasChangedIcon = false;
+    private IconPack.Icon _selectedIcon;
     private boolean _isEditingIcon;
     private CircleImageView _iconView;
     private ImageView _saveImageButton;
@@ -165,9 +182,11 @@ public class EditEntryActivity extends AegisActivity {
 
         // fill the fields with values if possible
         if (_origEntry.hasIcon()) {
+            IconViewHelper.setLayerType(_iconView, _origEntry.getIconType());
             Glide.with(this)
                 .asDrawable()
                 .load(_origEntry)
+                .set(IconLoader.ICON_TYPE, _origEntry.getIconType())
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(false)
                 .into(_iconView);
@@ -237,7 +256,7 @@ public class EditEntryActivity extends AegisActivity {
         });
 
         _iconView.setOnClickListener(v -> {
-            startIconSelectionActivity();
+            startIconSelection();
         });
 
         _dropdownGroup.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -379,16 +398,18 @@ public class EditEntryActivity extends AegisActivity {
                 onSave();
                 break;
             case R.id.action_delete:
-                Dialogs.showDeleteEntriesDialog(this, Collections.singletonList(_origEntry.getIssuer()), (dialog, which) -> {
+                Dialogs.showDeleteEntriesDialog(this, Collections.singletonList(_origEntry), (dialog, which) -> {
                     deleteAndFinish(_origEntry);
                 });
                 break;
             case R.id.action_edit_icon:
-                startIconSelectionActivity();
+                startIconSelection();
                 break;
             case R.id.action_default_icon:
                 TextDrawable drawable = TextDrawableHelper.generate(_origEntry.getIssuer(), _origEntry.getName(), _iconView);
                 _iconView.setImageDrawable(drawable);
+
+                _selectedIcon = null;
                 _hasCustomIcon = false;
                 _hasChangedIcon = true;
             default:
@@ -398,7 +419,7 @@ public class EditEntryActivity extends AegisActivity {
         return true;
     }
 
-    private void startIconSelectionActivity() {
+    private void startImageSelectionActivity() {
         Intent galleryIntent = new Intent(Intent.ACTION_PICK);
         galleryIntent.setDataAndType(android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI, "image/*");
 
@@ -407,7 +428,45 @@ public class EditEntryActivity extends AegisActivity {
 
         Intent chooserIntent = Intent.createChooser(galleryIntent, getString(R.string.select_icon));
         chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[] { fileIntent });
-        startActivityForResult(chooserIntent, PICK_IMAGE_REQUEST);
+        AegisActivity.Helper.startExtActivityForResult(this, chooserIntent, PICK_IMAGE_REQUEST);
+    }
+
+    private void startIconSelection() {
+        List<IconPack> iconPacks = getApp().getIconPackManager().getIconPacks().stream()
+                .sorted(Comparator.comparing(IconPack::getName))
+                .collect(Collectors.toList());
+        if (iconPacks.size() == 0) {
+            startImageSelectionActivity();
+            return;
+        }
+
+        BottomSheetDialog dialog = IconPickerDialog.create(this, iconPacks, _textIssuer.getText().toString(), new IconAdapter.Listener() {
+            @Override
+            public void onIconSelected(IconPack.Icon icon) {
+                selectIcon(icon);
+            }
+
+            @Override
+            public void onCustomSelected() {
+                startImageSelectionActivity();
+            }
+        });
+        Dialogs.showSecureDialog(dialog);
+    }
+
+    private void selectIcon(IconPack.Icon icon) {
+        _selectedIcon = icon;
+        _hasCustomIcon = true;
+        _hasChangedIcon = true;
+
+        IconViewHelper.setLayerType(_iconView, icon.getIconType());
+        Glide.with(EditEntryActivity.this)
+                .asDrawable()
+                .load(icon.getFile())
+                .set(IconLoader.ICON_TYPE, icon.getIconType())
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(false)
+                .into(_iconView);
     }
 
     private void startEditingIcon(Uri data) {
@@ -438,11 +497,12 @@ public class EditEntryActivity extends AegisActivity {
     }
 
     private void stopEditingIcon(boolean save) {
-        if (save) {
+        if (save && _selectedIcon == null) {
             _iconView.setImageBitmap(_kropView.getCroppedBitmap());
         }
         _iconView.setVisibility(View.VISIBLE);
         _kropView.setVisibility(View.GONE);
+
         _hasCustomIcon = _hasCustomIcon || save;
         _hasChangedIcon = save;
         _isEditingIcon = false;
@@ -494,10 +554,41 @@ public class EditEntryActivity extends AegisActivity {
     @Override
     protected void onActivityResult(int requestCode, final int resultCode, Intent data) {
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            startEditingIcon(data.getData());
+            String fileType = getMimeType(data.getData());
+            if (fileType != null && fileType.equals(IconType.SVG.toMimeType())) {
+                ImportFileTask.Params params = new ImportFileTask.Params(data.getData(), "icon", null);
+                ImportFileTask task = new ImportFileTask(this, result -> {
+                    if (result.getException() == null) {
+                        CustomSvgIcon icon = new CustomSvgIcon(result.getFile());
+                        selectIcon(icon);
+                    } else {
+                        Dialogs.showErrorDialog(this, R.string.reading_file_error, result.getException());
+                    }
+                });
+                task.execute(getLifecycle(), params);
+            } else {
+                startEditingIcon(data.getData());
+            }
         }
 
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private String getMimeType(Uri uri) {
+        DocumentFile file = DocumentFile.fromSingleUri(this, uri);
+        if (file != null) {
+            String fileType = file.getType();
+            if (fileType != null) {
+                return fileType;
+            }
+
+            String ext = MimeTypeMap.getFileExtensionFromUrl(uri.toString());
+            if (ext != null) {
+                return MimeTypeMap.getSingleton().getMimeTypeFromExtension(ext);
+            }
+        }
+
+        return null;
     }
 
     private int parsePeriod() throws ParseException {
@@ -577,13 +668,25 @@ public class EditEntryActivity extends AegisActivity {
 
         if (_hasChangedIcon) {
             if (_hasCustomIcon) {
-                Bitmap bitmap = ((BitmapDrawable) _iconView.getDrawable()).getBitmap();
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 90, stream);
-                byte[] data = stream.toByteArray();
-                entry.setIcon(data);
+                if (_selectedIcon == null) {
+                    Bitmap bitmap = ((BitmapDrawable) _iconView.getDrawable()).getBitmap();
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    // the quality parameter is ignored for PNG
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                    byte[] data = stream.toByteArray();
+                    entry.setIcon(data, IconType.PNG);
+                } else {
+                    byte[] iconBytes;
+                    try (FileInputStream inStream = new FileInputStream(_selectedIcon.getFile())){
+                        iconBytes = IOUtils.readFile(inStream);
+                    } catch (IOException e) {
+                        throw new ParseException(e.getMessage());
+                    }
+
+                    entry.setIcon(iconBytes, _selectedIcon.getIconType());
+                }
             } else {
-                entry.setIcon(null);
+                entry.setIcon(null, IconType.INVALID);
             }
         }
 
@@ -626,7 +729,7 @@ public class EditEntryActivity extends AegisActivity {
         }
     }
 
-    private TextWatcher _iconChangeListener = new TextWatcher() {
+    private final TextWatcher _iconChangeListener = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
         }
@@ -647,6 +750,25 @@ public class EditEntryActivity extends AegisActivity {
     private static class ParseException extends Exception {
         public ParseException(String message) {
             super(message);
+        }
+    }
+
+    private static class CustomSvgIcon extends IconPack.Icon {
+        private final File _file;
+
+        protected CustomSvgIcon(File file) {
+            super(file.getAbsolutePath(), null, null);
+            _file = file;
+        }
+
+        @Nullable
+        public File getFile() {
+            return _file;
+        }
+
+        @Override
+        public IconType getIconType() {
+            return IconType.SVG;
         }
     }
 }

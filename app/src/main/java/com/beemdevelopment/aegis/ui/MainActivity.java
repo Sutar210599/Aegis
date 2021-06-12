@@ -77,7 +77,6 @@ public class MainActivity extends AegisActivity implements EntryListView.Listene
     private AegisApplication _app;
     private VaultManager _vault;
     private boolean _loaded;
-    private List<String> _selectedGroups;
     private boolean _searchSubmitted;
 
     private boolean _isAuthenticating;
@@ -120,6 +119,7 @@ public class MainActivity extends AegisActivity implements EntryListView.Listene
         _entryListView.setSortCategory(getPreferences().getCurrentSortCategory(), false);
         _entryListView.setViewMode(getPreferences().getCurrentViewMode());
         _entryListView.setIsCopyOnTapEnabled(getPreferences().isCopyOnTapEnabled());
+        _entryListView.setPrefGroupFilter(getPreferences().getGroupFilter());
 
          FloatingActionButton fab = findViewById(R.id.fab);
          fab.setOnClickListener(v -> {
@@ -378,7 +378,7 @@ public class MainActivity extends AegisActivity implements EntryListView.Listene
 
         Intent chooserIntent = Intent.createChooser(galleryIntent, getString(R.string.select_picture));
         chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[] { fileIntent });
-        startActivityForResult(chooserIntent, CODE_SCAN_IMAGE);
+        AegisActivity.Helper.startExtActivityForResult(this, chooserIntent, CODE_SCAN_IMAGE);
     }
 
     private void startPreferencesActivity() {
@@ -725,9 +725,17 @@ public class MainActivity extends AegisActivity implements EntryListView.Listene
     public void onListChange() { _fabScrollHelper.setVisible(true); }
 
     @Override
+    public void onSaveGroupFilter(List<String> groupFilter) {
+        getPreferences().setGroupFilter(groupFilter);
+    }
+
+    @Override
     public void onLocked(boolean userInitiated) {
         if (_actionMode != null) {
             _actionMode.finish();
+        }
+        if (!_searchView.isIconified()) {
+            collapseSearchView();
         }
 
         _entryListView.clearEntries();
@@ -787,13 +795,14 @@ public class MainActivity extends AegisActivity implements EntryListView.Listene
                         return true;
 
                     case R.id.action_delete:
-                        Dialogs.showDeleteEntriesDialog(MainActivity.this, _selectedEntries.stream().map(VaultEntry::getIssuer).collect(Collectors.toList()), (d, which) -> {
+                        Dialogs.showDeleteEntriesDialog(MainActivity.this, _selectedEntries, (d, which) -> {
                             deleteEntries(_selectedEntries);
 
                             for (VaultEntry entry : _selectedEntries) {
                                 if (entry.getGroup() != null) {
                                     if (!_vault.getGroups().contains(entry.getGroup())) {
                                         _entryListView.setGroups(_vault.getGroups());
+                                        break;
                                     }
                                 }
                             }

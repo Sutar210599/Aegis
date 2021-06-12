@@ -1,5 +1,6 @@
 package com.beemdevelopment.aegis.ui;
 
+import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.CallSuper;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import com.beemdevelopment.aegis.AegisApplication;
 import com.beemdevelopment.aegis.Preferences;
@@ -19,6 +21,8 @@ import com.beemdevelopment.aegis.ThemeMap;
 import com.beemdevelopment.aegis.ui.dialogs.Dialogs;
 import com.beemdevelopment.aegis.vault.VaultManagerException;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Locale;
 import java.util.Map;
 
@@ -68,28 +72,16 @@ public abstract class AegisActivity extends AppCompatActivity implements AegisAp
     }
 
     @Override
-    public void startActivityForResult(Intent intent, int requestCode, Bundle bundle) {
-        if (isAutoLockBypassedForAction(intent.getAction())) {
-            _app.setBlockAutoLock(true);
-        }
-
-        try {
-            super.startActivityForResult(intent, requestCode, bundle);
-        } catch (ActivityNotFoundException e) {
-            e.printStackTrace();
-
-            if (isDocsAction(intent.getAction())) {
-                Dialogs.showErrorDialog(this, R.string.documentsui_error, e);
-            } else {
-                throw e;
-            }
-        }
-    }
-
-    @Override
     public void onLocked(boolean userInitiated) {
         setResult(RESULT_CANCELED, null);
-        finishAndRemoveTask();
+        try {
+            Method method = Activity.class.getDeclaredMethod("finish", int.class);
+            method.setAccessible(true);
+            method.invoke(this, 2); // FINISH_TASK_WITH_ACTIVITY = 2
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
+            finishAndRemoveTask();
+        }
     }
 
     protected AegisApplication getApp() {
@@ -158,16 +150,66 @@ public abstract class AegisActivity extends AppCompatActivity implements AegisAp
         return !(this instanceof MainActivity) && !(this instanceof AuthActivity) && !(this instanceof IntroActivity) && _app.isVaultLocked();
     }
 
-    private static boolean isDocsAction(@Nullable String action) {
-        return action != null && (action.equals(Intent.ACTION_GET_CONTENT)
-                || action.equals(Intent.ACTION_CREATE_DOCUMENT)
-                || action.equals(Intent.ACTION_OPEN_DOCUMENT)
-                || action.equals(Intent.ACTION_OPEN_DOCUMENT_TREE));
-    }
+    public static class Helper {
+        private Helper() {
 
-    private static boolean isAutoLockBypassedForAction(@Nullable String action) {
-        return isDocsAction(action) || (action != null && (action.equals(Intent.ACTION_PICK)
-                || action.equals(Intent.ACTION_SEND)
-                || action.equals(Intent.ACTION_CHOOSER)));
+        }
+
+        /**
+         * Starts an external activity, temporarily blocks automatic lock of Aegis and
+         * shows an error dialog if the target activity is not found.
+         */
+        public static void startExtActivityForResult(Activity activity, Intent intent, int requestCode) {
+            AegisApplication app = (AegisApplication) activity.getApplication();
+            app.setBlockAutoLock(true);
+
+            try {
+                activity.startActivityForResult(intent, requestCode, null);
+            } catch (ActivityNotFoundException e) {
+                e.printStackTrace();
+
+                if (isDocsAction(intent.getAction())) {
+                    Dialogs.showErrorDialog(activity, R.string.documentsui_error, e);
+                } else {
+                    throw e;
+                }
+            }
+        }
+
+        /**
+         * Starts an external activity, temporarily blocks automatic lock of Aegis and
+         * shows an error dialog if the target activity is not found.
+         */
+        public static void startExtActivity(Fragment fragment, Intent intent) {
+            startExtActivityForResult(fragment, intent, -1);
+        }
+
+        /**
+         * Starts an external activity, temporarily blocks automatic lock of Aegis and
+         * shows an error dialog if the target activity is not found.
+         */
+        public static void startExtActivityForResult(Fragment fragment, Intent intent, int requestCode) {
+            AegisApplication app = (AegisApplication) fragment.getActivity().getApplication();
+            app.setBlockAutoLock(true);
+
+            try {
+                fragment.startActivityForResult(intent, requestCode, null);
+            } catch (ActivityNotFoundException e) {
+                e.printStackTrace();
+
+                if (isDocsAction(intent.getAction())) {
+                    Dialogs.showErrorDialog(fragment.getContext(), R.string.documentsui_error, e);
+                } else {
+                    throw e;
+                }
+            }
+        }
+
+        private static boolean isDocsAction(@Nullable String action) {
+            return action != null && (action.equals(Intent.ACTION_GET_CONTENT)
+                    || action.equals(Intent.ACTION_CREATE_DOCUMENT)
+                    || action.equals(Intent.ACTION_OPEN_DOCUMENT)
+                    || action.equals(Intent.ACTION_OPEN_DOCUMENT_TREE));
+        }
     }
 }

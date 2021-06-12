@@ -7,7 +7,13 @@ import android.net.Uri;
 import android.os.Build;
 import android.preference.PreferenceManager;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
@@ -223,5 +229,28 @@ public class Preferences {
 
     public boolean isCopyOnTapEnabled() {
         return _prefs.getBoolean("pref_copy_on_tap", false);
+    }
+
+    public void setGroupFilter(List<String> groupFilter) {
+        JSONArray json = new JSONArray(groupFilter);
+        _prefs.edit().putString("pref_group_filter", json.toString()).apply();
+    }
+
+    public List<String> getGroupFilter() {
+        String raw = _prefs.getString("pref_group_filter", null);
+        if (raw == null || raw.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        try {
+            JSONArray json = new JSONArray(raw);
+            List<String> filter = new ArrayList<>();
+            for (int i = 0; i < json.length(); i++) {
+                filter.add(json.getString(i));
+            }
+            return filter;
+        } catch (JSONException e) {
+            return Collections.emptyList();
+        }
     }
 }
